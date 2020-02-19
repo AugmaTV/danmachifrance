@@ -1,0 +1,16 @@
+[
+{
+  "modid": "dmm",
+  "name": "DanMachi France Menu",
+  "description": "Mod for DanMachi France to custom the main menu",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Augma"],
+  "credits": "Forge Team",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
