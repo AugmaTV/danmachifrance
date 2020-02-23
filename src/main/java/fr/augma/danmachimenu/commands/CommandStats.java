@@ -1,6 +1,8 @@
 package fr.augma.danmachimenu.commands;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.google.common.collect.Lists;
 
@@ -13,26 +15,37 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 
 public class CommandStats extends CommandBase {
-	private final List<String> 	aliases = Lists.newArrayList(DanMachiMenuMain.MODID, "dmfstats", "dmfstatistique");
+	private final List 	aliases;
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public CommandStats() {
+		this.aliases = new ArrayList();
+		this.aliases.add("dmfstats");
+		this.aliases.add("dmfstatistique");
+		this.aliases.add("dmfstat");
 	}
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "dmfstatistique <msg>";
+		return "danmachidmod";
 	}
 	
 	@Override
-	public List<String> getAliases() {
+	public List getAliases() {
 		return aliases;
+	}
+	
+	public int getRequiredPermissionLevel() {
+		return 4;
 	}
 	
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		if(sender instanceof EntityPlayer) {
+			if(!sender.canUseCommand(this.getRequiredPermissionLevel(), this.getName())) {
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -40,8 +53,29 @@ public class CommandStats extends CommandBase {
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if(sender instanceof EntityPlayer) {
 			EntityPlayer p = (EntityPlayer) sender;
-			sender.sendMessage(new TextComponentString(p.getName()));
-			sender.getPosition().add(10, 0, 0);
+			if(args.length > 0) {
+				switch(args[0]) {
+				case "set":
+					p.getCapability(DanMachiMenuMain.DMM_CAP, null).setMoney(5000);
+					p.sendMessage(new TextComponentString("Money mise a jour"));
+					break;
+				case "reset":
+					p.getCapability(DanMachiMenuMain.DMM_CAP, null).setMoney(0);
+					p.sendMessage(new TextComponentString("Money mise a jour"));
+					break;
+				default:	
+					p.sendMessage(new TextComponentString(args[0]));
+					p.sendMessage(new TextComponentString("/dmfstatistique <set|reset>"));
+					break;
+				}
+			} else {
+				p.sendMessage(new TextComponentString("money : " + p.getCapability(DanMachiMenuMain.DMM_CAP, null).getMoney()));
+			}
 		}
+	}
+
+	@Override
+	public String getName() {
+		return "dmfstatistique";
 	}
 }
