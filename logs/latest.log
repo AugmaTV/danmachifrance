@@ -1,165 +1,78 @@
-[19:31:33] [main/INFO] [GradleStart]: username: Akuma
-[19:31:33] [main/INFO] [GradleStart]: Extra: []
-[19:31:33] [main/INFO] [GradleStart]: Running with arguments: [--userProperties, {}, --assetsDir, C:/Users/Augma/.gradle/caches/minecraft/assets, --assetIndex, 1.12, --accessToken{REDACTED}, --version, 1.12.2, --username, Akuma, --tweakClass, net.minecraftforge.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
-[19:31:33] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
-[19:31:33] [main/INFO] [LaunchWrapper]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
-[19:31:33] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
-[19:31:33] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
-[19:31:33] [main/INFO] [FML]: Forge Mod Loader version 14.23.5.2838 for Minecraft 1.12.2 loading
-[19:31:33] [main/INFO] [FML]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_241, running on Windows 10:amd64:10.0, installed at C:\Program Files\Java\jre1.8.0_241
-[19:31:33] [main/ERROR] [FML]: Apache Maven library folder was not in the format expected. Using default libraries directory.
-[19:31:33] [main/ERROR] [FML]: Full: C:\Users\Augma\.gradle\caches\modules-2\files-2.1\org.apache.maven\maven-artifact\3.5.3\7dc72b6d6d8a6dced3d294ed54c2cc3515ade9f4\maven-artifact-3.5.3.jar
-[19:31:33] [main/ERROR] [FML]: Trimmed: c:/users/augma/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-artifact/3.5.3/
-[19:31:33] [main/INFO] [FML]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
-[19:31:33] [main/INFO] [FML]: Detected deobfuscated environment, loading log configs for colored console logs.
-[19:31:34] [main/INFO] [FML]: Ignoring missing certificate for coremod FMLCorePlugin (net.minecraftforge.fml.relauncher.FMLCorePlugin), we are in deobf and it's a forge core plugin
-[19:31:34] [main/INFO] [FML]: Ignoring missing certificate for coremod FMLForgePlugin (net.minecraftforge.classloading.FMLForgePlugin), we are in deobf and it's a forge core plugin
-[19:31:34] [main/INFO] [FML]: Searching C:\Users\Augma\Desktop\DanMachiFranceLauncher\DanMachiMenu\.\mods for mods
-[19:31:34] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
-[19:31:34] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.fml.relauncher.FMLCorePlugin
-[19:31:34] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
-[19:31:34] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[19:31:34] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
-[19:31:34] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
-[19:31:34] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[19:31:34] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
-[19:31:34] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
-[19:31:36] [main/ERROR] [FML]: FML appears to be missing any signature data. This is not a good thing
-[19:31:36] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
-[19:31:36] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
-[19:31:36] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
-[19:31:36] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
-[19:31:36] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
-[19:31:36] [main/INFO] [LaunchWrapper]: Launching wrapped minecraft {net.minecraft.client.main.Main}
-[19:31:37] [Client thread/INFO] [net.minecraft.client.Minecraft]: Setting user: Akuma
-[19:31:40] [Client thread/WARN] [net.minecraft.client.settings.GameSettings]: Skipping bad option: lastServer:
-[19:31:40] [Client thread/INFO] [net.minecraft.client.Minecraft]: LWJGL Version: 2.9.4
-[19:31:41] [Client thread/INFO] [FML]: -- System Details --
+[01:10:46] [main/INFO] [GradleStart]: username: Akuma
+[01:10:46] [main/INFO] [GradleStart]: Extra: []
+[01:10:46] [main/INFO] [GradleStart]: Running with arguments: [--userProperties, {}, --assetsDir, C:/Users/Augma/.gradle/caches/minecraft/assets, --assetIndex, 1.12, --accessToken{REDACTED}, --version, 1.12.2, --username, Akuma, --tweakClass, net.minecraftforge.fml.common.launcher.FMLTweaker, --tweakClass, net.minecraftforge.gradle.tweakers.CoremodTweaker]
+[01:10:46] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[01:10:46] [main/INFO] [LaunchWrapper]: Using primary tweak class name net.minecraftforge.fml.common.launcher.FMLTweaker
+[01:10:46] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.CoremodTweaker
+[01:10:46] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLTweaker
+[01:10:46] [main/INFO] [FML]: Forge Mod Loader version 14.23.5.2838 for Minecraft 1.12.2 loading
+[01:10:46] [main/INFO] [FML]: Java is Java HotSpot(TM) 64-Bit Server VM, version 1.8.0_241, running on Windows 10:amd64:10.0, installed at C:\Program Files\Java\jre1.8.0_241
+[01:10:46] [main/ERROR] [FML]: Apache Maven library folder was not in the format expected. Using default libraries directory.
+[01:10:46] [main/ERROR] [FML]: Full: C:\Users\Augma\.gradle\caches\modules-2\files-2.1\org.apache.maven\maven-artifact\3.5.3\7dc72b6d6d8a6dced3d294ed54c2cc3515ade9f4\maven-artifact-3.5.3.jar
+[01:10:46] [main/ERROR] [FML]: Trimmed: c:/users/augma/.gradle/caches/modules-2/files-2.1/org.apache.maven/maven-artifact/3.5.3/
+[01:10:46] [main/INFO] [FML]: Managed to load a deobfuscated Minecraft name- we are in a deobfuscated environment. Skipping runtime deobfuscation
+[01:10:46] [main/INFO] [FML]: Detected deobfuscated environment, loading log configs for colored console logs.
+[01:10:47] [main/INFO] [FML]: Ignoring missing certificate for coremod FMLCorePlugin (net.minecraftforge.fml.relauncher.FMLCorePlugin), we are in deobf and it's a forge core plugin
+[01:10:47] [main/INFO] [FML]: Ignoring missing certificate for coremod FMLForgePlugin (net.minecraftforge.classloading.FMLForgePlugin), we are in deobf and it's a forge core plugin
+[01:10:47] [main/INFO] [FML]: Searching C:\Users\Augma\Desktop\DanMachiFranceLauncher\DanMachiMenu\.\mods for mods
+[01:10:47] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.CoremodTweaker
+[01:10:47] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.fml.relauncher.FMLCorePlugin
+[01:10:47] [main/INFO] [GradleStart]: Injecting location in coremod net.minecraftforge.classloading.FMLForgePlugin
+[01:10:47] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[01:10:47] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[01:10:47] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[01:10:47] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[01:10:47] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLInjectionAndSortingTweaker
+[01:10:47] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[01:10:49] [main/ERROR] [FML]: FML appears to be missing any signature data. This is not a good thing
+[01:10:49] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.relauncher.CoreModManager$FMLPluginWrapper
+[01:10:49] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.FMLDeobfTweaker
+[01:10:49] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.gradle.tweakers.AccessTransformerTweaker
+[01:10:49] [main/INFO] [LaunchWrapper]: Loading tweak class name net.minecraftforge.fml.common.launcher.TerminalTweaker
+[01:10:49] [main/INFO] [LaunchWrapper]: Calling tweak class net.minecraftforge.fml.common.launcher.TerminalTweaker
+[01:10:49] [main/INFO] [LaunchWrapper]: Launching wrapped minecraft {net.minecraft.client.main.Main}
+[01:10:50] [Client thread/INFO] [net.minecraft.client.Minecraft]: Setting user: Akuma
+[01:10:53] [Client thread/WARN] [net.minecraft.client.settings.GameSettings]: Skipping bad option: lastServer:
+[01:10:53] [Client thread/INFO] [net.minecraft.client.Minecraft]: LWJGL Version: 2.9.4
+[01:10:54] [Client thread/INFO] [FML]: -- System Details --
 Details:
 	Minecraft Version: 1.12.2
 	Operating System: Windows 10 (amd64) version 10.0
 	Java Version: 1.8.0_241, Oracle Corporation
 	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
-	Memory: 879981392 bytes (839 MB) / 1037959168 bytes (989 MB) up to 1037959168 bytes (989 MB)
+	Memory: 876930216 bytes (836 MB) / 1037959168 bytes (989 MB) up to 1037959168 bytes (989 MB)
 	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
 	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
 	FML: 
 	Loaded coremods (and transformers): 
 	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 431.91' Renderer: 'GeForce GTX 1650/PCIe/SSE2'
-[19:31:41] [Client thread/INFO] [FML]: MinecraftForge v14.23.5.2838 Initialized
-[19:31:41] [Client thread/INFO] [FML]: Starts to replace vanilla recipe ingredients with ore ingredients.
-[19:31:41] [Client thread/INFO] [FML]: Invalid recipe found with multiple oredict ingredients in the same ingredient...
-[19:31:41] [Client thread/INFO] [FML]: Replaced 1227 ore ingredients
-[19:31:41] [Client thread/INFO] [FML]: Searching C:\Users\Augma\Desktop\DanMachiFranceLauncher\DanMachiMenu\.\mods for mods
-[19:31:43] [Client thread/INFO] [FML]: Forge Mod Loader has identified 5 mods to load
-[19:31:43] [Thread-3/INFO] [FML]: Using sync timing. 200 frames of Display.update took 84821200 nanos
-[19:31:43] [Client thread/INFO] [FML]: Attempting connection with missing mods [minecraft, mcp, FML, forge, dmm] at CLIENT
-[19:31:43] [Client thread/INFO] [FML]: Attempting connection with missing mods [minecraft, mcp, FML, forge, dmm] at SERVER
-[19:31:43] [Client thread/INFO] [net.minecraft.client.resources.SimpleReloadableResourceManager]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:DanMachi France Menu
-[19:31:43] [Client thread/INFO] [FML]: Processing ObjectHolder annotations
-[19:31:44] [Client thread/INFO] [FML]: Found 1168 ObjectHolder annotations
-[19:31:44] [Client thread/INFO] [FML]: Identifying ItemStackHolder annotations
-[19:31:44] [Client thread/INFO] [FML]: Found 0 ItemStackHolder annotations
-[19:31:44] [Client thread/INFO] [FML]: Configured a dormant chunk cache size of 0
-[19:31:44] [Forge Version Check/INFO] [forge.VersionCheck]: [forge] Starting version check at http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json
-[19:31:44] [Client thread/INFO] [STDOUT]: [fr.augma.danmachimenu.common.DanMachiCommon:preInit:8]: pre init coté commun
-[19:31:44] [Client thread/INFO] [FML]: OBJLoader: Domain dmm has been added.
-[19:31:44] [Client thread/INFO] [STDOUT]: [fr.augma.danmachimenu.common.DanMachiClient:preInit:19]: pre init coté client
-[19:31:44] [Client thread/INFO] [FML]: Applying holder lookups
-[19:31:44] [Client thread/INFO] [FML]: Holder lookups applied
-[19:31:44] [Client thread/INFO] [FML]: Applying holder lookups
-[19:31:44] [Client thread/INFO] [FML]: Holder lookups applied
-[19:31:44] [Client thread/INFO] [FML]: Applying holder lookups
-[19:31:44] [Client thread/INFO] [FML]: Holder lookups applied
-[19:31:44] [Client thread/INFO] [FML]: Applying holder lookups
-[19:31:44] [Client thread/INFO] [FML]: Holder lookups applied
-[19:31:44] [Client thread/INFO] [FML]: Injecting itemstacks
-[19:31:44] [Client thread/INFO] [FML]: Itemstack injection complete
-[19:31:44] [Forge Version Check/INFO] [forge.VersionCheck]: [forge] Found status: OUTDATED Target: 14.23.5.2847
-[19:31:47] [Sound Library Loader/INFO] [net.minecraft.client.audio.SoundManager]: Starting up SoundSystem...
-[19:31:47] [Thread-5/INFO] [net.minecraft.client.audio.SoundManager]: Initializing LWJGL OpenAL
-[19:31:47] [Thread-5/INFO] [net.minecraft.client.audio.SoundManager]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[19:31:48] [Thread-5/INFO] [net.minecraft.client.audio.SoundManager]: OpenAL initialized.
-[19:31:48] [Sound Library Loader/INFO] [net.minecraft.client.audio.SoundManager]: Sound engine started
-[19:31:53] [Client thread/INFO] [FML]: Max texture size: 16384
-[19:31:53] [Client thread/WARN] [net.minecraft.client.renderer.texture.TextureMap]: Texture dmm:textures/items/itemtuto.png with size 4x4 will have visual artifacts at mip level 4, it can only support level 2. Please report to the mod author that the texture should be some multiple of 16x16.
-[19:31:54] [Client thread/WARN] [net.minecraft.client.renderer.texture.TextureMap]: Texture dmm:textures/items/hestia_dagger.png with size 4x4 will have visual artifacts at mip level 4, it can only support level 2. Please report to the mod author that the texture should be some multiple of 16x16.
-[19:31:54] [Client thread/WARN] [net.minecraft.client.renderer.texture.TextureMap]: Texture dmm:textures/items/hestia_dagger_2.png with size 4x4 will have visual artifacts at mip level 4, it can only support level 2. Please report to the mod author that the texture should be some multiple of 16x16.
-[19:31:54] [Client thread/INFO] [net.minecraft.client.renderer.texture.TextureMap]: Created: 512x512 textures-atlas
-[19:31:55] [Client thread/INFO] [FML]: Applying holder lookups
-[19:31:55] [Client thread/INFO] [FML]: Holder lookups applied
-[19:31:55] [Client thread/INFO] [FML]: Injecting itemstacks
-[19:31:55] [Client thread/INFO] [FML]: Itemstack injection complete
-[19:31:55] [Client thread/INFO] [FML]: Forge Mod Loader has successfully loaded 5 mods
-[19:31:55] [Client thread/WARN] [net.minecraft.client.settings.GameSettings]: Skipping bad option: lastServer:
-[19:31:55] [Client thread/INFO] [com.mojang.text2speech.NarratorWindows]: Narrator library for x64 successfully loaded
-[19:32:05] [Server thread/INFO] [net.minecraft.server.integrated.IntegratedServer]: Starting integrated minecraft server version 1.12.2
-[19:32:05] [Server thread/INFO] [net.minecraft.server.integrated.IntegratedServer]: Generating keypair
-[19:32:05] [Server thread/INFO] [FML]: Injecting existing registry data into this server instance
-[19:32:06] [Server thread/INFO] [FML]: Applying holder lookups
-[19:32:06] [Server thread/INFO] [FML]: Holder lookups applied
-[19:32:06] [Server thread/INFO] [FML]: Loading dimension 0 (New World) (net.minecraft.server.integrated.IntegratedServer@245fdef2)
-[19:32:06] [Server thread/INFO] [net.minecraft.advancements.AdvancementList]: Loaded 488 advancements
-[19:32:06] [Server thread/INFO] [FML]: Loading dimension -1 (New World) (net.minecraft.server.integrated.IntegratedServer@245fdef2)
-[19:32:06] [Server thread/INFO] [FML]: Loading dimension 1 (New World) (net.minecraft.server.integrated.IntegratedServer@245fdef2)
-[19:32:06] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Preparing start region for level 0
-[19:32:07] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Preparing spawn area: 64%
-[19:32:08] [Server thread/INFO] [FML]: Unloading dimension -1
-[19:32:08] [Server thread/INFO] [FML]: Unloading dimension 1
-[19:32:08] [Server thread/INFO] [net.minecraft.server.integrated.IntegratedServer]: Changing view distance to 12, from 10
-[19:32:08] [Netty Local Client IO #0/INFO] [FML]: Server protocol version 2
-[19:32:08] [Netty Server IO #1/INFO] [FML]: Client protocol version 2
-[19:32:08] [Netty Server IO #1/INFO] [FML]: Client attempting to join with 5 mods : minecraft@1.12.2,FML@8.0.99.99,dmm@1.0,forge@14.23.5.2838,mcp@9.42
-[19:32:08] [Netty Local Client IO #0/INFO] [FML]: [Netty Local Client IO #0] Client side modded connection established
-[19:32:08] [Server thread/INFO] [FML]: [Server thread] Server side modded connection established
-[19:32:08] [Server thread/INFO] [net.minecraft.server.management.PlayerList]: Akuma[local:E:d1957aa9] logged in with entity id 222 at (98.59139520624802, 71.0, 268.93999568518825)
-[19:32:08] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Akuma joined the game
-[19:32:09] [Server thread/INFO] [net.minecraft.server.integrated.IntegratedServer]: Saving and pausing game...
-[19:32:10] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Saving chunks for level 'New World'/overworld
-[19:32:10] [pool-2-thread-1/WARN] [com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService]: Couldn't look up profile properties for com.mojang.authlib.GameProfile@549241d2[id=b4350bf1-0ec0-3ba4-a857-9711e20648d5,name=Akuma,properties={},legacy=false]
-com.mojang.authlib.exceptions.AuthenticationException: The client has sent too many requests within a certain amount of time
-	at com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService.makeRequest(YggdrasilAuthenticationService.java:79) ~[YggdrasilAuthenticationService.class:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService.fillGameProfile(YggdrasilMinecraftSessionService.java:180) [YggdrasilMinecraftSessionService.class:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService$1.load(YggdrasilMinecraftSessionService.java:60) [YggdrasilMinecraftSessionService$1.class:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService$1.load(YggdrasilMinecraftSessionService.java:57) [YggdrasilMinecraftSessionService$1.class:?]
-	at com.google.common.cache.LocalCache$LoadingValueReference.loadFuture(LocalCache.java:3716) [guava-21.0.jar:?]
-	at com.google.common.cache.LocalCache$Segment.loadSync(LocalCache.java:2424) [guava-21.0.jar:?]
-	at com.google.common.cache.LocalCache$Segment.lockedGetOrLoad(LocalCache.java:2298) [guava-21.0.jar:?]
-	at com.google.common.cache.LocalCache$Segment.get(LocalCache.java:2211) [guava-21.0.jar:?]
-	at com.google.common.cache.LocalCache.get(LocalCache.java:4154) [guava-21.0.jar:?]
-	at com.google.common.cache.LocalCache.getOrLoad(LocalCache.java:4158) [guava-21.0.jar:?]
-	at com.google.common.cache.LocalCache$LocalLoadingCache.get(LocalCache.java:5147) [guava-21.0.jar:?]
-	at com.google.common.cache.LocalCache$LocalLoadingCache.getUnchecked(LocalCache.java:5153) [guava-21.0.jar:?]
-	at com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService.fillProfileProperties(YggdrasilMinecraftSessionService.java:170) [YggdrasilMinecraftSessionService.class:?]
-	at net.minecraft.client.Minecraft.getProfileProperties(Minecraft.java:3182) [Minecraft.class:?]
-	at net.minecraft.client.resources.SkinManager$3.run(SkinManager.java:138) [SkinManager$3.class:?]
-	at java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source) [?:1.8.0_241]
-	at java.util.concurrent.FutureTask.run(Unknown Source) [?:1.8.0_241]
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) [?:1.8.0_241]
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) [?:1.8.0_241]
-	at java.lang.Thread.run(Unknown Source) [?:1.8.0_241]
-[19:32:10] [Client thread/INFO] [net.minecraft.advancements.AdvancementList]: Loaded 37 advancements
-[19:32:12] [Server thread/INFO] [net.minecraft.server.integrated.IntegratedServer]: Saving and pausing game...
-[19:32:12] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Saving chunks for level 'New World'/overworld
-[19:32:14] [Client thread/INFO] [net.minecraft.network.NetworkSystem]: Using default channel type
-[19:32:14] [Client thread/INFO] [net.minecraft.server.integrated.IntegratedServer]: Started on 57178
-[19:32:14] [Client thread/INFO] [net.minecraft.client.gui.GuiNewChat]: [CHAT] Local game hosted on port 57178
-[19:32:15] [Client thread/INFO] [net.minecraft.client.gui.GuiNewChat]: [CHAT] money : 5000
-[19:32:18] [Client thread/INFO] [net.minecraft.client.gui.GuiNewChat]: [CHAT] f
-[19:32:18] [Client thread/INFO] [net.minecraft.client.gui.GuiNewChat]: [CHAT] /dmfstatistique <set|reset>
-[19:32:21] [Client thread/INFO] [net.minecraft.client.gui.GuiNewChat]: [CHAT] Money mise a jour
-[19:32:23] [Client thread/INFO] [net.minecraft.client.gui.GuiNewChat]: [CHAT] money : 0
-[19:32:27] [Client thread/INFO] [net.minecraft.client.gui.GuiNewChat]: [CHAT] Money mise a jour
-[19:32:28] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: <Akuma> t
-[19:32:28] [Client thread/INFO] [net.minecraft.client.gui.GuiNewChat]: [CHAT] <Akuma> t
-[19:32:30] [Client thread/INFO] [net.minecraft.client.gui.GuiNewChat]: [CHAT] money : 5000
-[19:33:00] [Client thread/INFO] [net.minecraft.client.Minecraft]: Stopping!
-[19:33:00] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Stopping server
-[19:33:00] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Saving players
-[19:33:00] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Saving worlds
-[19:33:00] [Server thread/INFO] [net.minecraft.server.MinecraftServer]: Saving chunks for level 'New World'/overworld
-[19:33:01] [Server thread/INFO] [FML]: Unloading dimension 0
-[19:33:01] [Server thread/INFO] [FML]: Applying holder lookups
-[19:33:01] [Server thread/INFO] [FML]: Holder lookups applied
-[19:33:01] [Client thread/INFO] [net.minecraft.client.audio.SoundManager]: SoundSystem shutting down...
-[19:33:01] [Client thread/WARN] [net.minecraft.client.audio.SoundManager]: Author: Paul Lamb, www.paulscode.com
+[01:10:54] [Client thread/INFO] [FML]: MinecraftForge v14.23.5.2838 Initialized
+[01:10:54] [Client thread/INFO] [FML]: Starts to replace vanilla recipe ingredients with ore ingredients.
+[01:10:54] [Client thread/INFO] [FML]: Invalid recipe found with multiple oredict ingredients in the same ingredient...
+[01:10:54] [Client thread/INFO] [FML]: Replaced 1227 ore ingredients
+[01:10:54] [Client thread/INFO] [FML]: Searching C:\Users\Augma\Desktop\DanMachiFranceLauncher\DanMachiMenu\.\mods for mods
+[01:10:55] [Client thread/INFO] [FML]: Forge Mod Loader has identified 5 mods to load
+[01:10:56] [Thread-3/INFO] [FML]: Using sync timing. 200 frames of Display.update took 80030500 nanos
+[01:10:56] [Client thread/INFO] [FML]: Attempting connection with missing mods [minecraft, mcp, FML, forge, dmm] at CLIENT
+[01:10:56] [Client thread/INFO] [FML]: Attempting connection with missing mods [minecraft, mcp, FML, forge, dmm] at SERVER
+[01:10:56] [Client thread/INFO] [FML]: The game window is being closed by the player, exiting.
+[01:10:56] [Client thread/WARN] [FML]: Java has been asked to exit (code 0)
+[01:10:56] [Client thread/WARN] [FML]: Exit trace:
+[01:10:56] [Client thread/WARN] [FML]: 	net.minecraftforge.fml.common.LoadController.transition(LoadController.java:145)
+[01:10:56] [Client thread/WARN] [FML]: 	net.minecraftforge.fml.common.Loader.loadMods(Loader.java:613)
+[01:10:56] [Client thread/WARN] [FML]: 	net.minecraftforge.fml.client.FMLClientHandler.beginMinecraftLoading(FMLClientHandler.java:232)
+[01:10:56] [Client thread/WARN] [FML]: 	net.minecraft.client.Minecraft.init(Minecraft.java:514)
+[01:10:56] [Client thread/WARN] [FML]: 	net.minecraft.client.Minecraft.run(Minecraft.java:422)
+[01:10:56] [Client thread/WARN] [FML]: 	net.minecraft.client.main.Main.main(Main.java:118)
+[01:10:56] [Client thread/WARN] [FML]: 	sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[01:10:56] [Client thread/WARN] [FML]: 	sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+[01:10:56] [Client thread/WARN] [FML]: 	sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+[01:10:56] [Client thread/WARN] [FML]: 	java.lang.reflect.Method.invoke(Unknown Source)
+[01:10:56] [Client thread/WARN] [FML]: 	net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+[01:10:56] [Client thread/WARN] [FML]: 	net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+[01:10:56] [Client thread/WARN] [FML]: 	sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[01:10:56] [Client thread/WARN] [FML]: 	sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+[01:10:56] [Client thread/WARN] [FML]: 	sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+[01:10:56] [Client thread/WARN] [FML]: 	java.lang.reflect.Method.invoke(Unknown Source)
+[01:10:56] [Client thread/WARN] [FML]: 	net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+[01:10:56] [Client thread/WARN] [FML]: 	GradleStart.main(GradleStart.java:25)

@@ -14,22 +14,42 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PacketCapabilitiesDmm implements IMessage {
 	
-	public int money;
-	
-	public PacketCapabilitiesDmm(int money) {
-		this.money = money;
+	public int xpCount;
+	public int forcelvl1;
+	public int defenselvl1;
+	public int agilitelvl1;
+	public int dexteritelvl1;
+	public int magielvl1;
+
+	public PacketCapabilitiesDmm(int xp, int forcelvl1, int defenselvl1, int agilitelvl1, int dexteritelvl1, int magielvl1) {
+		this.xpCount = xp;
+		this.forcelvl1 = forcelvl1;
+		this.defenselvl1 = defenselvl1;
+		this.agilitelvl1 = agilitelvl1;
+		this.dexteritelvl1 = dexteritelvl1;
+		this.magielvl1 = magielvl1;
 	}
 	
 	public PacketCapabilitiesDmm() {}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		this.money = buf.readInt();
+		this.xpCount = buf.readInt();
+		this.forcelvl1 = buf.readInt();
+		this.defenselvl1 = buf.readInt();
+		this.agilitelvl1 = buf.readInt();
+		this.dexteritelvl1 = buf.readInt();
+		this.magielvl1 = buf.readInt();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeInt(this.money);
+		buf.writeInt(this.xpCount);
+		buf.writeInt(this.forcelvl1);
+		buf.writeInt(this.defenselvl1);
+		buf.writeInt(this.agilitelvl1);
+		buf.writeInt(this.dexteritelvl1);
+		buf.writeInt(this.magielvl1);
 	}
 
 	public static class ServerHandler implements IMessageHandler <PacketCapabilitiesDmm, IMessage> {

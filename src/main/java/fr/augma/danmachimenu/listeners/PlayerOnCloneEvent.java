@@ -14,7 +14,12 @@ public class PlayerOnCloneEvent {
 			if(event.getOriginal().hasCapability(DanMachiMenuMain.DMM_CAP, null)) {
 				DmmCapabilitiesProvider cap = event.getOriginal().getCapability(DanMachiMenuMain.DMM_CAP, null);
 				DmmCapabilitiesProvider newCap = event.getEntityPlayer().getCapability(DanMachiMenuMain.DMM_CAP, null);
-				newCap.setMoney(cap.getMoney());
+				newCap.setXpCount(cap.getXpCount());
+				newCap.setForcelvl1(cap.getForcelvl1());
+				newCap.setDefenselvl1(cap.getDefenselvl1());
+				newCap.setAgilitelvl1(cap.getAgilitelvl1());
+				newCap.setDexteritelvl1(cap.getDexteritelvl1());
+				newCap.setMagielvl1(cap.getMagielvl1());
 			}
 		}
 	}

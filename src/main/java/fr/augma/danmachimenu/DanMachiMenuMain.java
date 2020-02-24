@@ -49,7 +49,7 @@ public class DanMachiMenuMain
     @SidedProxy(clientSide = "fr.augma.danmachimenu.common.DanMachiClient", serverSide = "fr.augma.danmachimenu.common.DanMachiServer")
     public static DanMachiCommon proxy;
 
-    @CapabilityInject(PacketCapabilitiesDmm.class)
+    @CapabilityInject(DmmCapabilitiesProvider.class)
     public static final Capability<DmmCapabilitiesProvider> DMM_CAP = null;
     
     private static Logger logger;
@@ -61,9 +61,6 @@ public class DanMachiMenuMain
     {
         logger = event.getModLog();
         proxy.preInit(event.getSuggestedConfigurationFile());
-        network = NetworkRegistry.INSTANCE.newSimpleChannel("dmmAttribute");
-        network.registerMessage(PacketCapabilitiesDmm.ClientHandler.class, PacketCapabilitiesDmm.class, 3, Side.CLIENT);
-        network.registerMessage(PacketCapabilitiesDmm.ServerHandler.class, PacketCapabilitiesDmm.class, 3, Side.SERVER);
         MinecraftForge.EVENT_BUS.register(new PlayerOnCloneEvent());
         MinecraftForge.EVENT_BUS.register(new AttachCapabilityEvent());
         MinecraftForge.EVENT_BUS.register(new PlayerRespawnEvent());
@@ -71,6 +68,9 @@ public class DanMachiMenuMain
         MinecraftForge.EVENT_BUS.register(new PlayerGetXpEvent());
         BlocksMod.init();
         ItemsMod.init();
+        network = NetworkRegistry.INSTANCE.newSimpleChannel("dmmAttribute");
+        network.registerMessage(PacketCapabilitiesDmm.ClientHandler.class, PacketCapabilitiesDmm.class, 3, Side.CLIENT);
+        network.registerMessage(PacketCapabilitiesDmm.ServerHandler.class, PacketCapabilitiesDmm.class, 3, Side.SERVER);
     }
 
     @EventHandler

@@ -12,6 +12,6 @@ public class PlayerGetXpEvent {
 		EntityPlayer p = e.getEntityPlayer();
 		e.setCanceled(true);
 		e.getOrb().setDead();
-		p.getCapability(DanMachiMenuMain.DMM_CAP, null).setMoney(e.getOrb().xpValue);
+		p.getCapability(DanMachiMenuMain.DMM_CAP, null).setXpCount(p.getCapability(DanMachiMenuMain.DMM_CAP, null).getXpCount() + e.getOrb().xpValue);
 	}
 }
