@@ -1,0 +1,152 @@
+---- Minecraft Crash Report ----
+// You should try our sister game, Minceraft!
+
+Time: 2/26/20 11:38 PM
+Description: Ticking entity
+
+java.lang.NullPointerException: Ticking entity
+	at fr.augma.danmachimenu.listeners.PlayerAttackEntityEvent.onPlayerAttackEntity(PlayerAttackEntityEvent.java:13)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_23_PlayerAttackEntityEvent_onPlayerAttackEntity_LivingAttackEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.common.ForgeHooks.onLivingAttack(ForgeHooks.java:585)
+	at net.minecraft.entity.EntityLivingBase.attackEntityFrom(EntityLivingBase.java:970)
+	at net.minecraft.entity.passive.EntityAnimal.attackEntityFrom(EntityAnimal.java:82)
+	at net.minecraft.entity.passive.EntityWolf.attackEntityFrom(EntityWolf.java:383)
+	at net.minecraft.entity.EntityLivingBase.onEntityUpdate(EntityLivingBase.java:287)
+	at net.minecraft.entity.EntityLiving.onEntityUpdate(EntityLiving.java:247)
+	at net.minecraft.entity.Entity.onUpdate(Entity.java:466)
+	at net.minecraft.entity.EntityLivingBase.onUpdate(EntityLivingBase.java:2322)
+	at net.minecraft.entity.EntityLiving.onUpdate(EntityLiving.java:346)
+	at net.minecraft.entity.passive.EntityWolf.onUpdate(EntityWolf.java:253)
+	at net.minecraft.world.World.updateEntityWithOptionalForce(World.java:2171)
+	at net.minecraft.world.World.updateEntity(World.java:2130)
+	at net.minecraft.world.World.updateEntities(World.java:1931)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1974)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1188)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:442)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at fr.augma.danmachimenu.listeners.PlayerAttackEntityEvent.onPlayerAttackEntity(PlayerAttackEntityEvent.java:13)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_23_PlayerAttackEntityEvent_onPlayerAttackEntity_LivingAttackEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.common.ForgeHooks.onLivingAttack(ForgeHooks.java:585)
+	at net.minecraft.entity.EntityLivingBase.attackEntityFrom(EntityLivingBase.java:970)
+	at net.minecraft.entity.passive.EntityAnimal.attackEntityFrom(EntityAnimal.java:82)
+	at net.minecraft.entity.passive.EntityWolf.attackEntityFrom(EntityWolf.java:383)
+	at net.minecraft.entity.EntityLivingBase.onEntityUpdate(EntityLivingBase.java:287)
+	at net.minecraft.entity.EntityLiving.onEntityUpdate(EntityLiving.java:247)
+	at net.minecraft.entity.Entity.onUpdate(Entity.java:466)
+	at net.minecraft.entity.EntityLivingBase.onUpdate(EntityLivingBase.java:2322)
+	at net.minecraft.entity.EntityLiving.onUpdate(EntityLiving.java:346)
+	at net.minecraft.entity.passive.EntityWolf.onUpdate(EntityWolf.java:253)
+	at net.minecraft.world.World.updateEntityWithOptionalForce(World.java:2171)
+	at net.minecraft.world.World.updateEntity(World.java:2130)
+
+-- Entity being ticked --
+Details:
+	Entity Type: minecraft:wolf (net.minecraft.entity.passive.EntityWolf)
+	Entity ID: 162
+	Entity Name: Wolf
+	Entity's Exact location: 204.19, 62.33, 286.48
+	Entity's Block location: World: (204,62,286), Chunk: (at 12,3,14 in 12,17; contains blocks 192,0,272 to 207,255,287), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Entity's Momentum: 0.01, -0.08, -0.05
+	Entity's Passengers: []
+	Entity's Vehicle: ~~ERROR~~ NullPointerException: null
+Stacktrace:
+	at net.minecraft.world.World.updateEntities(World.java:1931)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Akuma'/270, l='MpServer', x=169.18, y=65.00, z=272.18]]
+	Chunk stats: MultiplayerChunkCache: 726, 726
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (156,64,240), Chunk: (at 12,4,0 in 9,15; contains blocks 144,0,240 to 159,255,255), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Level time: 65323 game time, 4817 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 70 total; [EntityItem['item.item.egg'/139, l='MpServer', x=177.37, y=66.00, z=219.63], EntityBat['Bat'/140, l='MpServer', x=184.81, y=16.10, z=253.42], EntityBat['Bat'/141, l='MpServer', x=191.90, y=23.23, z=252.28], EntityItem['item.item.egg'/269, l='MpServer', x=214.40, y=65.00, z=220.03], EntityBat['Bat'/142, l='MpServer', x=186.54, y=59.10, z=309.50], EntityChicken['Chicken'/143, l='MpServer', x=182.80, y=72.00, z=332.20], EntityWolf['Wolf'/144, l='MpServer', x=190.50, y=74.00, z=327.30], EntityChicken['Chicken'/151, l='MpServer', x=205.23, y=67.00, z=221.49], EntityItem['item.item.egg'/152, l='MpServer', x=197.55, y=64.00, z=215.47], EntityItem['item.item.egg'/153, l='MpServer', x=207.30, y=67.00, z=218.42], EntityChicken['Chicken'/154, l='MpServer', x=203.60, y=66.00, z=218.36], EntityChicken['Chicken'/155, l='MpServer', x=193.68, y=66.00, z=232.85], EntityItem['item.item.egg'/156, l='MpServer', x=192.80, y=66.00, z=233.13], EntityCow['Cow'/157, l='MpServer', x=207.56, y=65.00, z=238.77], EntityChicken['Chicken'/158, l='MpServer', x=201.78, y=64.67, z=232.12], EntityCow['Cow'/159, l='MpServer', x=189.87, y=66.00, z=241.09], EntityItem['item.item.egg'/160, l='MpServer', x=194.77, y=65.00, z=240.77], EntityChicken['Chicken'/161, l='MpServer', x=205.87, y=67.00, z=249.93], EntityWolf['Wolf'/162, l='MpServer', x=204.19, y=62.33, z=286.48], EntityWolf['Wolf'/163, l='MpServer', x=201.51, y=71.00, z=344.57], EntityWolf['Wolf'/164, l='MpServer', x=204.58, y=70.00, z=348.72], EntityWolf['Wolf'/165, l='MpServer', x=207.31, y=70.00, z=347.51], EntityChicken['Chicken'/170, l='MpServer', x=219.40, y=61.00, z=192.84], EntityChicken['Chicken'/171, l='MpServer', x=214.50, y=65.00, z=220.13], EntityBat['Bat'/172, l='MpServer', x=214.54, y=23.10, z=230.75], EntityBat['Bat'/173, l='MpServer', x=215.30, y=40.10, z=224.68], EntityBat['Bat'/174, l='MpServer', x=216.13, y=44.37, z=248.85], EntityCow['Cow'/175, l='MpServer', x=217.48, y=70.00, z=249.21], EntityChicken['Chicken'/176, l='MpServer', x=215.48, y=69.00, z=246.89], EntityCow['Cow'/177, l='MpServer', x=209.20, y=67.00, z=251.14], EntityCow['Cow'/178, l='MpServer', x=214.17, y=62.00, z=259.48], EntityChicken['Chicken'/179, l='MpServer', x=215.16, y=67.00, z=259.56], EntityItem['item.item.egg'/180, l='MpServer', x=215.08, y=67.00, z=259.54], EntityItem['item.item.egg'/181, l='MpServer', x=219.01, y=68.00, z=257.13], EntityWolf['Wolf'/182, l='MpServer', x=219.50, y=67.00, z=330.37], EntityChicken['Chicken'/189, l='MpServer', x=235.17, y=52.00, z=201.51], EntityBat['Bat'/191, l='MpServer', x=226.68, y=17.10, z=232.32], EntityBat['Bat'/192, l='MpServer', x=237.45, y=60.10, z=239.61], EntityBat['Bat'/193, l='MpServer', x=229.95, y=40.96, z=242.69], EntityChicken['Chicken'/194, l='MpServer', x=226.87, y=67.00, z=268.50], EntityItem['item.item.egg'/195, l='MpServer', x=225.94, y=67.00, z=269.04], EntityWolf['Wolf'/196, l='MpServer', x=228.74, y=74.00, z=333.50], EntityWolf['Wolf'/197, l='MpServer', x=233.53, y=73.00, z=339.32], EntityBat['Bat'/206, l='MpServer', x=242.75, y=60.10, z=233.63], EntityWolf['Wolf'/207, l='MpServer', x=245.34, y=64.00, z=315.41], EntityWolf['Wolf'/208, l='MpServer', x=246.55, y=66.00, z=319.37], EntityChicken['Chicken'/85, l='MpServer', x=100.49, y=65.00, z=288.22], EntityChicken['Chicken'/86, l='MpServer', x=104.86, y=69.00, z=312.82], EntityChicken['Chicken'/87, l='MpServer', x=99.82, y=69.00, z=308.59], EntityChicken['Chicken'/88, l='MpServer', x=103.10, y=69.69, z=324.06], EntityChicken['Chicken'/89, l='MpServer', x=100.10, y=70.00, z=339.19], EntitySheep['Sheep'/95, l='MpServer', x=127.19, y=63.00, z=198.26], EntityBat['Bat'/96, l='MpServer', x=121.32, y=35.27, z=207.66], EntityChicken['Chicken'/97, l='MpServer', x=120.59, y=64.00, z=237.19], EntityItem['item.item.egg'/98, l='MpServer', x=122.47, y=64.00, z=231.96], EntityChicken['Chicken'/99, l='MpServer', x=118.85, y=64.00, z=243.68], EntityChicken['Chicken'/102, l='MpServer', x=134.61, y=66.00, z=273.12], EntityPlayerSP['Akuma'/270, l='MpServer', x=169.18, y=65.00, z=272.18], EntityItem['item.item.egg'/103, l='MpServer', x=134.57, y=66.00, z=273.53], EntityChicken['Chicken'/104, l='MpServer', x=135.64, y=69.00, z=336.84], EntityChicken['Chicken'/105, l='MpServer', x=134.52, y=70.00, z=336.86], EntityChicken['Chicken'/107, l='MpServer', x=143.46, y=67.00, z=344.20], EntityCow['Cow'/113, l='MpServer', x=144.60, y=63.00, z=209.84], EntityItem['item.item.egg'/114, l='MpServer', x=154.29, y=67.00, z=224.80], EntityChicken['Chicken'/115, l='MpServer', x=159.20, y=66.00, z=234.45], EntityPig['Pig'/116, l='MpServer', x=144.51, y=65.00, z=289.22], EntityChicken['Chicken'/118, l='MpServer', x=157.18, y=72.00, z=351.92], EntityChicken['Chicken'/125, l='MpServer', x=175.13, y=67.00, z=223.11], EntityBat['Bat'/126, l='MpServer', x=165.37, y=23.10, z=334.35], EntityBat['Bat'/127, l='MpServer', x=160.25, y=37.10, z=327.26]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:461)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2889)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:463)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_241, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 616475520 bytes (587 MB) / 1037959168 bytes (989 MB) up to 1037959168 bytes (989 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	IntCache: cache: 0, tcache: 0, allocated: 13, tallocated: 95
+	FML: MCP 9.42 Powered by Forge 14.23.5.2838 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                           | Signature |
+	|:------ |:--------- |:------------ |:-------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                    | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                    | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2838.jar | None      |
+	| LCHIJA | forge     | 14.23.5.2838 | forgeSrc-1.12.2-14.23.5.2838.jar | None      |
+	| LCHIJA | dmm       | 1.0          | bin                              | None      |
+
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 431.91' Renderer: 'GeForce GTX 1650/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: GeForce GTX 1650/PCIe/SSE2 GL version 4.6.0 NVIDIA 431.91, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 8x AMD Ryzen 7 3750H with Radeon Vega Mobile Gfx 

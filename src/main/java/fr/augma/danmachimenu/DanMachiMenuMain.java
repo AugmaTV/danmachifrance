@@ -28,6 +28,7 @@ import fr.augma.danmachimenu.ctabs.CreativeTab;
 import fr.augma.danmachimenu.init.BlocksMod;
 import fr.augma.danmachimenu.init.ItemsMod;
 import fr.augma.danmachimenu.listeners.AttachCapabilityEvent;
+import fr.augma.danmachimenu.listeners.PlayerAttackEntityEvent;
 import fr.augma.danmachimenu.listeners.PlayerGetXpEvent;
 import fr.augma.danmachimenu.listeners.PlayerJoinEvent;
 import fr.augma.danmachimenu.listeners.PlayerOnCloneEvent;
@@ -49,7 +50,7 @@ public class DanMachiMenuMain
     @SidedProxy(clientSide = "fr.augma.danmachimenu.common.DanMachiClient", serverSide = "fr.augma.danmachimenu.common.DanMachiServer")
     public static DanMachiCommon proxy;
 
-    @CapabilityInject(DmmCapabilitiesProvider.class)
+    @CapabilityInject(PacketCapabilitiesDmm.class)
     public static final Capability<DmmCapabilitiesProvider> DMM_CAP = null;
     
     private static Logger logger;
@@ -66,6 +67,7 @@ public class DanMachiMenuMain
         MinecraftForge.EVENT_BUS.register(new PlayerRespawnEvent());
         MinecraftForge.EVENT_BUS.register(new PlayerJoinEvent());
         MinecraftForge.EVENT_BUS.register(new PlayerGetXpEvent());
+        MinecraftForge.EVENT_BUS.register(new PlayerAttackEntityEvent());
         BlocksMod.init();
         ItemsMod.init();
         network = NetworkRegistry.INSTANCE.newSimpleChannel("dmmAttribute");
