@@ -115,7 +115,8 @@
   },
   "minecraft:adventure/adventuring_time": {
     "criteria": {
-      "plains": "2020-02-23 22:59:14 +0100"
+      "plains": "2020-02-23 22:59:14 +0100",
+      "savanna_rock": "2020-02-27 13:09:51 +0100"
     },
     "done": false
   },

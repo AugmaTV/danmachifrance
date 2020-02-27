@@ -1,7 +1,35 @@
 package fr.augma.danmachimenu.gui;
 
+import com.google.common.collect.Lists;
+import com.google.common.util.concurrent.Runnables;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import fr.augma.danmachimenu.DanMachiMod;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.client.network.ServerPinger;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StringUtils;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.WorldServerDemo;
+import net.minecraft.world.storage.ISaveFormat;
+import net.minecraft.world.storage.WorldInfo;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GLContext;
+
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -14,156 +42,124 @@ import java.util.Random;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GLContext;
-import org.lwjgl.util.glu.Project;
-
-import com.google.common.collect.Lists;
-import com.google.common.util.concurrent.Runnables;
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
-
-import fr.augma.danmachimenu.DanMachiMenuMain;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiButtonLanguage;
-import net.minecraft.client.gui.GuiConfirmOpenLink;
-import net.minecraft.client.gui.GuiLanguage;
-import net.minecraft.client.gui.GuiMultiplayer;
-import net.minecraft.client.gui.GuiOptions;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiWinGame;
-import net.minecraft.client.gui.GuiWorldSelection;
-import net.minecraft.client.gui.GuiYesNo;
-import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.client.network.ServerPinger;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.resources.IResource;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.WorldServerDemo;
-import net.minecraft.world.storage.ISaveFormat;
-import net.minecraft.world.storage.WorldInfo;
-import net.minecraftforge.fml.client.FMLClientHandler;
-
 public class GuiCustomMainMenu extends GuiScreen {
+
+    public static final String MORE_INFO_TEXT = "Please click " + TextFormatting.UNDERLINE + "here" + TextFormatting.RESET + " for more information.";
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Random RANDOM = new Random();
+    private static final ResourceLocation SPLASH_TEXTS = new ResourceLocation("texts/splashes.txt");
+    private static final ResourceLocation MTITLE_TEXTURE = new ResourceLocation(DanMachiMod.MODID, "textures/gui/title.png");
+    private static final ResourceLocation field_194400_H = new ResourceLocation("textures/gui/title/edition.png");
+    /**
+     * An array of all the paths to the panorama pictures.
+     */
+    private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(DanMachiMod.MODID, "textures/gui/bg.png");
+    private static final ThreadPoolExecutor EXECUTOR = new ScheduledThreadPoolExecutor(5, (new ThreadFactoryBuilder()).setNameFormat("Server Pinger #%d").setDaemon(true).build());
     /**
      * A random number between 0.0 and 1.0, used to determine if the title screen says <a
      * href="https://minecraft.gamepedia.com/Menu_screen#Minceraft">Minceraft</a> instead of Minecraft. Set during
      * construction; if the value is less than .0001, then Minceraft is displayed.
      */
     private final float minceraftRoll;
-    /** The splash message. */
+    /**
+     * The Object object utilized as a thread lock when performing non thread-safe operations
+     */
+    private final Object threadLock = new Object();
+    private final ServerPinger serverPinger = new ServerPinger();
+    private final ServerData server = new ServerData("serveur", "danmachifrance.serverminer.com", false);
+    /**
+     * The splash message.
+     */
     private String splashText;
     private GuiButton buttonResetDemo;
-    /** Timer used to rotate the panorama, increases every tick. */
+    /**
+     * Timer used to rotate the panorama, increases every tick.
+     */
     private float panoramaTimer;
-    /** Texture allocated for the current viewport of the main menu's panorama background. */
+    /**
+     * Texture allocated for the current viewport of the main menu's panorama background.
+     */
     private DynamicTexture viewportTexture;
-    /** The Object object utilized as a thread lock when performing non thread-safe operations */
-    private final Object threadLock = new Object();
-    public static final String MORE_INFO_TEXT = "Please click " + TextFormatting.UNDERLINE + "here" + TextFormatting.RESET + " for more information.";
-    /** Width of openGLWarning2 */
+    /**
+     * Width of openGLWarning2
+     */
     private int openGLWarning2Width;
-    /** Width of openGLWarning1 */
+    /**
+     * Width of openGLWarning1
+     */
     private int openGLWarning1Width;
-    /** Left x coordinate of the OpenGL warning */
+    /**
+     * Left x coordinate of the OpenGL warning
+     */
     private int openGLWarningX1;
-    /** Top y coordinate of the OpenGL warning */
+    /**
+     * Top y coordinate of the OpenGL warning
+     */
     private int openGLWarningY1;
-    /** Right x coordinate of the OpenGL warning */
+    /**
+     * Right x coordinate of the OpenGL warning
+     */
     private int openGLWarningX2;
-    /** Bottom y coordinate of the OpenGL warning */
+    /**
+     * Bottom y coordinate of the OpenGL warning
+     */
     private int openGLWarningY2;
-    /** OpenGL graphics card warning. */
+    /**
+     * OpenGL graphics card warning.
+     */
     private String openGLWarning1;
-    /** OpenGL graphics card warning. */
+    /**
+     * OpenGL graphics card warning.
+     */
     private String openGLWarning2;
-    /** Link to the Mojang Support about minimum requirements */
+    /**
+     * Link to the Mojang Support about minimum requirements
+     */
     private String openGLWarningLink;
-    private static final ResourceLocation SPLASH_TEXTS = new ResourceLocation("texts/splashes.txt");
-    private static final ResourceLocation MTITLE_TEXTURE = new ResourceLocation(DanMachiMenuMain.MODID, "textures/gui/title.png");
-    private static final ResourceLocation field_194400_H = new ResourceLocation("textures/gui/title/edition.png");
-    /** An array of all the paths to the panorama pictures. */
-    private static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(DanMachiMenuMain.MODID, "textures/gui/bg.png"); 
     private ResourceLocation backgroundTexture;
-
     private int widthCopyright;
     private int widthCopyrightRest;
     private GuiButton modButton;
-    
-    private final ServerPinger serverPinger = new ServerPinger();
 
-    private ServerData server = new ServerData("serveur", "danmachifrance.serverminer.com", false);
-
-    private static final ThreadPoolExecutor EXECUTOR = new ScheduledThreadPoolExecutor(5, (new ThreadFactoryBuilder()).setNameFormat("Server Pinger #%d").setDaemon(true).build()); 
-
-    public GuiCustomMainMenu()
-    {
+    public GuiCustomMainMenu() {
         this.openGLWarning2 = MORE_INFO_TEXT;
         this.splashText = "missingno";
         IResource iresource = null;
-        
-        FMLClientHandler.instance().setupServerList(); 
-        
-        try
-        {
-            List<String> list = Lists.<String>newArrayList();
+
+        FMLClientHandler.instance().setupServerList();
+
+        try {
+            List<String> list = Lists.newArrayList();
             iresource = Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS);
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8));
             String s;
 
-            while ((s = bufferedreader.readLine()) != null)
-            {
+            while ((s = bufferedreader.readLine()) != null) {
                 s = s.trim();
 
-                if (!s.isEmpty())
-                {
+                if (!s.isEmpty()) {
                     list.add(s);
                 }
             }
 
-            if (!list.isEmpty())
-            {
-                while (true)
-                {
+            if (!list.isEmpty()) {
+                while (true) {
                     this.splashText = list.get(RANDOM.nextInt(list.size()));
 
-                    if (this.splashText.hashCode() != 125780783)
-                    {
+                    if (this.splashText.hashCode() != 125780783) {
                         break;
                     }
                 }
             }
-        }
-        catch (IOException var8)
-        {
-            ;
-        }
-        finally
-        {
-            IOUtils.closeQuietly((Closeable)iresource);
+        } catch (IOException var8) {
+        } finally {
+            IOUtils.closeQuietly(iresource);
         }
 
         this.minceraftRoll = RANDOM.nextFloat();
         this.openGLWarning1 = "";
 
-        if (!GLContext.getCapabilities().OpenGL20 && !OpenGlHelper.areShadersSupported())
-        {
+        if (!GLContext.getCapabilities().OpenGL20 && !OpenGlHelper.areShadersSupported()) {
             this.openGLWarning1 = I18n.format("title.oldgl1");
             this.openGLWarning2 = I18n.format("title.oldgl2");
             this.openGLWarningLink = "https://help.mojang.com/customer/portal/articles/325948?ref=game";
@@ -173,16 +169,14 @@ public class GuiCustomMainMenu extends GuiScreen {
     /**
      * Called from the main game loop to update the screen.
      */
-    public void updateScreen()
-    {
-        
+    public void updateScreen() {
+
     }
 
     /**
      * Returns true if this GUI should pause the game when it is displayed in single-player
      */
-    public boolean doesGuiPauseGame()
-    {
+    public boolean doesGuiPauseGame() {
         return false;
     }
 
@@ -190,16 +184,14 @@ public class GuiCustomMainMenu extends GuiScreen {
      * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
      * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
      */
-    protected void keyTyped(char typedChar, int keyCode) throws IOException
-    {
+    protected void keyTyped(char typedChar, int keyCode) throws IOException {
     }
 
     /**
      * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
      * window resizes, the buttonList is cleared beforehand.
      */
-    public void initGui()
-    {
+    public void initGui() {
         this.viewportTexture = new DynamicTexture(256, 256);
         this.backgroundTexture = this.mc.getTextureManager().getDynamicTextureLocation("background", this.viewportTexture);
         this.widthCopyright = this.fontRenderer.getStringWidth("Copyright Mojang AB. Do not distribute!");
@@ -207,24 +199,18 @@ public class GuiCustomMainMenu extends GuiScreen {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
 
-        if (calendar.get(2) + 1 == 12 && calendar.get(5) == 24)
-        {
+        if (calendar.get(2) + 1 == 12 && calendar.get(5) == 24) {
             this.splashText = "Merry X-mas!";
-        }
-        else if (calendar.get(2) + 1 == 1 && calendar.get(5) == 1)
-        {
+        } else if (calendar.get(2) + 1 == 1 && calendar.get(5) == 1) {
             this.splashText = "Happy new year!";
-        }
-        else if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31)
-        {
+        } else if (calendar.get(2) + 1 == 10 && calendar.get(5) == 31) {
             this.splashText = "OOoooOOOoooo! Spooky!";
         }
 
         int i = 24;
         int j = this.height / 4 + 48;
 
-        if (this.mc.isDemo())
-        {
+        if (this.mc.isDemo()) {
             this.addDemoButtons(j, 24);
         }
         /*else
@@ -238,8 +224,7 @@ public class GuiCustomMainMenu extends GuiScreen {
         this.buttonList.add(new GuiButton(4, this.width / 2 + 72, j + 56, 98, 20, I18n.format("Quitter")));
         //this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, j + 72 + 12));
 
-        synchronized (this.threadLock)
-        {
+        synchronized (this.threadLock) {
             this.openGLWarning1Width = this.fontRenderer.getStringWidth(this.openGLWarning1);
             this.openGLWarning2Width = this.fontRenderer.getStringWidth(this.openGLWarning2);
             int k = Math.max(this.openGLWarning1Width, this.openGLWarning2Width);
@@ -248,31 +233,29 @@ public class GuiCustomMainMenu extends GuiScreen {
             this.openGLWarningX2 = this.openGLWarningX1 + k;
             this.openGLWarningY2 = this.openGLWarningY1 + 24;
         }
-        
+
     }
 
     /**
      * Adds Singleplayer and Multiplayer buttons on Main Menu for players who have bought the game.
      *
-    private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_)
-    {
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer")));
-        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer")));
-        this.buttonList.add(modButton = new GuiButton(6, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("fml.menu.mods")));
-    }*/
+     private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_)
+     {
+     this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer")));
+     this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer")));
+     this.buttonList.add(modButton = new GuiButton(6, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("fml.menu.mods")));
+     }*/
 
     /**
      * Adds Demo buttons on Main Menu for players who are playing Demo.
      */
-    private void addDemoButtons(int p_73972_1_, int p_73972_2_)
-    {
+    private void addDemoButtons(int p_73972_1_, int p_73972_2_) {
         this.buttonList.add(new GuiButton(11, this.width / 2 - 100, p_73972_1_, I18n.format("menu.playdemo")));
         this.buttonResetDemo = this.addButton(new GuiButton(12, this.width / 2 - 100, p_73972_1_ + p_73972_2_ * 1, I18n.format("menu.resetdemo")));
         ISaveFormat isaveformat = this.mc.getSaveLoader();
         WorldInfo worldinfo = isaveformat.getWorldInfo("Demo_World");
 
-        if (worldinfo == null)
-        {
+        if (worldinfo == null) {
             this.buttonResetDemo.enabled = false;
         }
     }
@@ -280,85 +263,64 @@ public class GuiCustomMainMenu extends GuiScreen {
     /**
      * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
      */
-    protected void actionPerformed(GuiButton button) throws IOException
-    {
-        if (button.id == 0)
-        {
+    protected void actionPerformed(GuiButton button) throws IOException {
+        if (button.id == 0) {
             this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
         }
 
-        if (button.id == 5)
-        {
+        if (button.id == 5) {
             this.mc.displayGuiScreen(new GuiLanguage(this, this.mc.gameSettings, this.mc.getLanguageManager()));
         }
 
-        if (button.id == 1)
-        {
+        if (button.id == 1) {
             this.mc.displayGuiScreen(new GuiWorldSelection(this));
         }
 
-        if (button.id == 2)
-        {
+        if (button.id == 2) {
             this.mc.displayGuiScreen(new GuiMultiplayer(this));
         }
 
-        if (button.id == 4)
-        {
+        if (button.id == 4) {
             this.mc.shutdown();
         }
 
-        if (button.id == 6)
-        {
+        if (button.id == 6) {
             this.mc.displayGuiScreen(new net.minecraftforge.fml.client.GuiModList(this));
         }
-        
-        if (button.id == 7)
-        {
-        	FMLClientHandler.instance().connectToServer(this, new ServerData("localserver", "danmachifrance.serverminer.com", false));
+
+        if (button.id == 7) {
+            FMLClientHandler.instance().connectToServer(this, new ServerData("localserver", "danmachifrance.serverminer.com", false));
         }
 
-        if (button.id == 11)
-        {
+        if (button.id == 11) {
             this.mc.launchIntegratedServer("Demo_World", "Demo_World", WorldServerDemo.DEMO_WORLD_SETTINGS);
         }
 
-        if (button.id == 12)
-        {
+        if (button.id == 12) {
             ISaveFormat isaveformat = this.mc.getSaveLoader();
             WorldInfo worldinfo = isaveformat.getWorldInfo("Demo_World");
 
-            if (worldinfo != null)
-            {
+            if (worldinfo != null) {
                 this.mc.displayGuiScreen(new GuiYesNo(this, I18n.format("selectWorld.deleteQuestion"), "'" + worldinfo.getWorldName() + "' " + I18n.format("selectWorld.deleteWarning"), I18n.format("selectWorld.deleteButton"), I18n.format("gui.cancel"), 12));
             }
         }
     }
 
-    public void confirmClicked(boolean result, int id)
-    {
-        if (result && id == 12)
-        {
+    public void confirmClicked(boolean result, int id) {
+        if (result && id == 12) {
             ISaveFormat isaveformat = this.mc.getSaveLoader();
             isaveformat.flushCache();
             isaveformat.deleteWorldDirectory("Demo_World");
             this.mc.displayGuiScreen(this);
-        }
-        else if (id == 12)
-        {
+        } else if (id == 12) {
             this.mc.displayGuiScreen(this);
-        }
-        else if (id == 13)
-        {
-            if (result)
-            {
-                try
-                {
+        } else if (id == 13) {
+            if (result) {
+                try {
                     Class<?> oclass = Class.forName("java.awt.Desktop");
-                    Object object = oclass.getMethod("getDesktop").invoke((Object)null);
+                    Object object = oclass.getMethod("getDesktop").invoke(null);
                     oclass.getMethod("browse", URI.class).invoke(object, new URI(this.openGLWarningLink));
-                }
-                catch (Throwable throwable)
-                {
+                } catch (Throwable throwable) {
                     LOGGER.error("Couldn't open link", throwable);
                 }
             }
@@ -460,8 +422,7 @@ public class GuiCustomMainMenu extends GuiScreen {
     /**
      * Rotate and blurs the skybox view in the main menu
      */
-    private void rotateAndBlurSkybox()
-    {
+    private void rotateAndBlurSkybox() {
         this.mc.getTextureManager().bindTexture(this.backgroundTexture);
         GlStateManager.glTexParameteri(3553, 10241, 9729);
         GlStateManager.glTexParameteri(3553, 10240, 9729);
@@ -475,16 +436,15 @@ public class GuiCustomMainMenu extends GuiScreen {
         GlStateManager.disableAlpha();
         int i = 3;
 
-        for (int j = 0; j < 3; ++j)
-        {
-            float f = 1.0F / (float)(j + 1);
+        for (int j = 0; j < 3; ++j) {
+            float f = 1.0F / (float) (j + 1);
             int k = this.width;
             int l = this.height;
-            float f1 = (float)(j - 1) / 256.0F;
-            bufferbuilder.pos((double)k, (double)l, (double)this.zLevel).tex((double)(0.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos((double)k, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos(0.0D, (double)l, (double)this.zLevel).tex((double)(0.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            float f1 = (float) (j - 1) / 256.0F;
+            bufferbuilder.pos(k, l, this.zLevel).tex(0.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos(k, 0.0D, this.zLevel).tex(1.0F + f1, 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos(0.0D, 0.0D, this.zLevel).tex(1.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos(0.0D, l, this.zLevel).tex(0.0F + f1, 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
         }
 
         tessellator.draw();
@@ -527,8 +487,7 @@ public class GuiCustomMainMenu extends GuiScreen {
     /**
      * Draws the screen and all the components in it.
      */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         mc.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         Gui.drawScaledCustomSizeModalRect(0, 0, 0, 0, 1, 1, this.width, this.height, 1, 1);
@@ -557,7 +516,6 @@ public class GuiCustomMainMenu extends GuiScreen {
         //this.mc.getTextureManager().bindTexture(field_194400_H);
         //drawModalRectWithCustomSizedTexture(j + 88, 67, 0.0F, 0.0F, 98, 14, 128.0F, 16.0F);
 
-        
 
         GlStateManager.pushMatrix();
         /*GlStateManager.translate((float)(this.width / 2 + 90), 70.0F, 0.0F);
@@ -569,12 +527,9 @@ public class GuiCustomMainMenu extends GuiScreen {
         GlStateManager.popMatrix();
         String s = "Minecraft 1.12.2";
 
-        if (this.mc.isDemo())
-        {
+        if (this.mc.isDemo()) {
             s = s + " Demo";
-        }
-        else
-        {
+        } else {
             s = s + ("release".equalsIgnoreCase(this.mc.getVersionType()) ? "" : "/" + this.mc.getVersionType());
         }
 
@@ -587,31 +542,26 @@ public class GuiCustomMainMenu extends GuiScreen {
                 this.drawString(this.fontRenderer, brd, 2, this.height - ( 10 + brdline * (this.fontRenderer.FONT_HEIGHT + 1)), 16777215);
             }
         }*/
-        this.drawString(this.fontRenderer, "DanMachi France Menu Mod Made By Augma", 2, this.height - ( 10 + 0 * (this.fontRenderer.FONT_HEIGHT + 1)), 16777215);
+        this.drawString(this.fontRenderer, "DanMachi France Menu Mod Made By Augma", 2, this.height - (10 + 0 * (this.fontRenderer.FONT_HEIGHT + 1)), 16777215);
 
-        if (this.openGLWarning1 != null && !this.openGLWarning1.isEmpty())
-        {
+        if (this.openGLWarning1 != null && !this.openGLWarning1.isEmpty()) {
             drawRect(this.openGLWarningX1 - 2, this.openGLWarningY1 - 2, this.openGLWarningX2 + 2, this.openGLWarningY2 - 1, 1428160512);
             this.drawString(this.fontRenderer, this.openGLWarning1, this.openGLWarningX1, this.openGLWarningY1, -1);
             this.drawString(this.fontRenderer, this.openGLWarning2, (this.width - this.openGLWarning2Width) / 2, (this.buttonList.get(0)).y - 12, -1);
         }
-        
+
         this.drawString(this.fontRenderer, "Copyright Mojang AB. Do not distribute!", this.widthCopyrightRest, this.height - 10, -1);
-        if (mouseX > this.widthCopyrightRest && mouseX < this.widthCopyrightRest + this.widthCopyright && mouseY > this.height - 10 && mouseY < this.height && Mouse.isInsideWindow())
-        {
+        if (mouseX > this.widthCopyrightRest && mouseX < this.widthCopyrightRest + this.widthCopyright && mouseY > this.height - 10 && mouseY < this.height && Mouse.isInsideWindow()) {
             drawRect(this.widthCopyrightRest, this.height - 1, this.widthCopyrightRest + this.widthCopyright, this.height, -1);
         }
-        if (this.openGLWarning1 != null && !this.openGLWarning1.isEmpty())
-        {
+        if (this.openGLWarning1 != null && !this.openGLWarning1.isEmpty()) {
             drawRect(this.openGLWarningX1 - 2, this.openGLWarningY1 - 2, this.openGLWarningX2 + 2, this.openGLWarningY2 - 1, 1428160512);
             this.drawString(this.fontRenderer, this.openGLWarning1, this.openGLWarningX1, this.openGLWarningY1, -1);
             this.drawString(this.fontRenderer, this.openGLWarning2, (this.width - this.openGLWarning2Width) / 2, (this.buttonList.get(0)).y - 12, -1);
         }
         super.drawScreen(mouseX, mouseY, partialTicks);
-        
-        if(!this.server.pinged)
 
-        {
+        if (!this.server.pinged) {
 
             this.server.pinged = true;
 
@@ -621,39 +571,25 @@ public class GuiCustomMainMenu extends GuiScreen {
 
             this.server.populationInfo = "";
 
-            EXECUTOR.submit(new Runnable()	
-
-            {
+            EXECUTOR.submit(new Runnable() {
 
                 @Override
 
-                public void run()
+                public void run() {
 
-                {
-
-                    try
-
-                    {
+                    try {
 
                         GuiCustomMainMenu.this.serverPinger.ping(GuiCustomMainMenu.this.server);
 
-                    }
-
-                    catch(UnknownHostException unknowHostException)
-
-                    {
+                    } catch (UnknownHostException unknowHostException) {
 
                         GuiCustomMainMenu.this.server.pingToServer = -1L;
 
-                        GuiCustomMainMenu.this.server.serverMOTD = TextFormatting.DARK_RED + "Impossible de résoudre le nom d'hôte";
+                        GuiCustomMainMenu.this.server.serverMOTD = TextFormatting.DARK_RED + "Impossible de rï¿½soudre le nom d'hï¿½te";
 
                         // on peut aussi utiliser I18n pour passer par les fichiers de langage
 
-                    }
-
-                    catch(Exception exception)
-
-                    {
+                    } catch (Exception exception) {
 
                         GuiCustomMainMenu.this.server.pingToServer = -1L;
 
@@ -666,13 +602,11 @@ public class GuiCustomMainMenu extends GuiScreen {
             });
 
         }
-        if(this.server.pingToServer >= 0L)
-
-        {
+        if (this.server.pingToServer >= 0L) {
 
             this.drawString(this.fontRenderer, this.server.populationInfo + TextFormatting.BOLD, this.width / 2 - 25, this.height / 4 + 40, 0x245791);
 
-            this.drawString(this.fontRenderer, " | " + TextFormatting.GRAY + Long.toString(this.server.pingToServer) + " ms", this.width / 2 , this.height / 4 + 40	, 0x245791);
+            this.drawString(this.fontRenderer, " | " + TextFormatting.GRAY + this.server.pingToServer + " ms", this.width / 2, this.height / 4 + 40, 0x245791);
 
             /*if(this.server.playerList != null && !this.server.playerList.isEmpty())
             {
@@ -692,22 +626,18 @@ public class GuiCustomMainMenu extends GuiScreen {
     /**
      * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
      */
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
-    {
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
-        synchronized (this.threadLock)
-        {
-            if (!this.openGLWarning1.isEmpty() && !StringUtils.isNullOrEmpty(this.openGLWarningLink) && mouseX >= this.openGLWarningX1 && mouseX <= this.openGLWarningX2 && mouseY >= this.openGLWarningY1 && mouseY <= this.openGLWarningY2)
-            {
+        synchronized (this.threadLock) {
+            if (!this.openGLWarning1.isEmpty() && !StringUtils.isNullOrEmpty(this.openGLWarningLink) && mouseX >= this.openGLWarningX1 && mouseX <= this.openGLWarningX2 && mouseY >= this.openGLWarningY1 && mouseY <= this.openGLWarningY2) {
                 GuiConfirmOpenLink guiconfirmopenlink = new GuiConfirmOpenLink(this, this.openGLWarningLink, 13, true);
                 guiconfirmopenlink.disableSecurityWarning();
                 this.mc.displayGuiScreen(guiconfirmopenlink);
             }
         }
-        
-        if (mouseX > this.widthCopyrightRest && mouseX < this.widthCopyrightRest + this.widthCopyright && mouseY > this.height - 10 && mouseY < this.height)
-        {
+
+        if (mouseX > this.widthCopyrightRest && mouseX < this.widthCopyrightRest + this.widthCopyright && mouseY > this.height - 10 && mouseY < this.height) {
             this.mc.displayGuiScreen(new GuiWinGame(false, Runnables.doNothing()));
         }
     }
@@ -715,8 +645,7 @@ public class GuiCustomMainMenu extends GuiScreen {
     /**
      * Called when the screen is unloaded. Used to disable keyboard repeat events
      */
-    public void onGuiClosed()
-    {
-        
+    public void onGuiClosed() {
+
     }
 }
