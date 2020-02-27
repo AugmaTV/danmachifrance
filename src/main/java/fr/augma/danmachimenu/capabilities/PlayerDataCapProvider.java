@@ -33,7 +33,7 @@ public class PlayerDataCapProvider implements ICapabilitySerializable<NBTBase> {
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CAPABILITY) {
-            return (T) capability;
+            return (T) plrData;
         }
         return null;
     }
