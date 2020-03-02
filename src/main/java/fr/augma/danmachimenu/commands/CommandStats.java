@@ -74,6 +74,7 @@ public class CommandStats extends CommandBase {
         	player.sendMessage(new TextComponentString("| Agility : " + getNote(pCapData.getInteger("agilitelvl" + player.experienceLevel)) + "."));
         	player.sendMessage(new TextComponentString("| Dexterity : " + getNote(pCapData.getInteger("dexteritelvl" + player.experienceLevel)) + "."));
         	player.sendMessage(new TextComponentString("| Magie : " + getNote(pCapData.getInteger("magielvl" + player.experienceLevel)) + "."));
+        	player.sendMessage(new TextComponentString("| Act of Gods : " + pCap.getLevelUp()));
         	player.sendMessage(new TextComponentString("--------------------------"));
         }
     }

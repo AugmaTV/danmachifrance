@@ -53,29 +53,35 @@ public class CommandRefresh extends CommandBase {
 		int pLvl = player.experienceLevel;
 		List<String> attributeList = Arrays.asList("forcelvl", "endurancelvl", "agilitelvl", "dexteritelvl", "magielvl");
 		Random r = new Random();
-		for(int i = 0; i < xpCount; i++) {
-			if(!(pCapData.getInteger("forcelvl"+pLvl) == 999 && pCapData.getInteger("endurancelvl"+pLvl) == 999 && pCapData.getInteger("agilitelvl"+pLvl) == 999 && pCapData.getInteger("dexteritelvl"+pLvl) == 999 && pCapData.getInteger("magielvl"+pLvl) == 999)) {
-				int rInt = r.nextInt(5);
-				if(pCapData.getInteger(attributeList.get(rInt) + pLvl) != 999) {
-					pCapData.setInteger(attributeList.get(rInt) + pLvl, pCapData.getInteger(attributeList.get(rInt) + pLvl) + 1);
+		if(pCap.getXP() > 0) {
+			for(int i = 0; i < xpCount; i++) {
+				if(!(pCapData.getInteger("forcelvl"+pLvl) == 999 && pCapData.getInteger("endurancelvl"+pLvl) == 999 && pCapData.getInteger("agilitelvl"+pLvl) == 999 && pCapData.getInteger("dexteritelvl"+pLvl) == 999 && pCapData.getInteger("magielvl"+pLvl) == 999)) {
+					int rInt = r.nextInt(5);
+					if(pCapData.getInteger(attributeList.get(rInt) + pLvl) != 999) {
+						pCapData.setInteger(attributeList.get(rInt) + pLvl, pCapData.getInteger(attributeList.get(rInt) + pLvl) + 1);
+					}
+					pCap.addXP(-1);
+				} else {
+					maxed = true;
 				}
-				pCap.addXP(-1);
-			} else {
-				maxed = true;
 			}
-		}
-		CommonEventHandler.addMaxHealth(player);
-		CommonEventHandler.addVelocity(player);
-		if(maxed) {
-			player.sendMessage(new TextComponentString("--------------------------"));
-    		player.sendMessage(new TextComponentString("| You'r full of statistics for your level, Congratulation !"));
-    		if(player.experienceLevel == 10) {
-    			player.sendMessage(new TextComponentString("| You'r at the maximum level, powerfull !"));
-    		}
-    		player.sendMessage(new TextComponentString("--------------------------"));
+			CommonEventHandler.addMaxHealth(player);
+			CommonEventHandler.addVelocity(player);
+			if(maxed) {
+				player.sendMessage(new TextComponentString("--------------------------"));
+	    		player.sendMessage(new TextComponentString("| You'r full of statistics for your level, Congratulation !"));
+	    		if(player.experienceLevel == 10) {
+	    			player.sendMessage(new TextComponentString("| You'r at the maximum level, powerfull !"));
+	    		}
+	    		player.sendMessage(new TextComponentString("--------------------------"));
+			} else {
+				player.sendMessage(new TextComponentString("--------------------------"));
+				player.sendMessage(new TextComponentString("| Statistics refresh !"));
+				player.sendMessage(new TextComponentString("--------------------------"));
+			}
 		} else {
 			player.sendMessage(new TextComponentString("--------------------------"));
-			player.sendMessage(new TextComponentString("| Statistics refresh !"));
+			player.sendMessage(new TextComponentString("| You don't have enough falnas"));
 			player.sendMessage(new TextComponentString("--------------------------"));
 		}
 	}

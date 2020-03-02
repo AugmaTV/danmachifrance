@@ -1,0 +1,124 @@
+---- Minecraft Crash Report ----
+// I bet Cylons wouldn't have this problem.
+
+Time: 3/2/20 3:28 PM
+Description: Unexpected error
+
+java.lang.UnsupportedOperationException: Attempted to call Event#setCanceled() on a non-cancelable event of type: net.minecraftforge.client.event.FOVUpdateEvent
+	at net.minecraftforge.fml.common.eventhandler.Event.setCanceled(Event.java:96)
+	at fr.augma.danmachimenu.events.CommonEventHandler.onFovUpdate(CommonEventHandler.java:166)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_12_CommonEventHandler_onFovUpdate_FOVUpdateEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.client.ForgeHooksClient.getOffsetFOV(ForgeHooksClient.java:279)
+	at net.minecraft.client.entity.AbstractClientPlayer.getFovModifier(AbstractClientPlayer.java:173)
+	at net.minecraft.client.renderer.EntityRenderer.updateFovModifierHand(EntityRenderer.java:497)
+	at net.minecraft.client.renderer.EntityRenderer.updateRenderer(EntityRenderer.java:295)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1955)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:1188)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:442)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Client thread
+Stacktrace:
+	at net.minecraftforge.fml.common.eventhandler.Event.setCanceled(Event.java:96)
+	at fr.augma.danmachimenu.events.CommonEventHandler.onFovUpdate(CommonEventHandler.java:166)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_12_CommonEventHandler_onFovUpdate_FOVUpdateEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.client.ForgeHooksClient.getOffsetFOV(ForgeHooksClient.java:279)
+	at net.minecraft.client.entity.AbstractClientPlayer.getFovModifier(AbstractClientPlayer.java:173)
+	at net.minecraft.client.renderer.EntityRenderer.updateFovModifierHand(EntityRenderer.java:497)
+	at net.minecraft.client.renderer.EntityRenderer.updateRenderer(EntityRenderer.java:295)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityPlayerSP['Akuma'/368, l='MpServer', x=190.53, y=63.00, z=271.38]]
+	Chunk stats: MultiplayerChunkCache: 121, 121
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (212,64,256), Chunk: (at 4,4,0 in 13,16; contains blocks 208,0,256 to 223,255,271), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Level time: 139720 game time, 10600 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 57 total; [EntityBat['Bat'/257, l='MpServer', x=254.25, y=45.00, z=211.25], EntitySheep['Sheep'/258, l='MpServer', x=242.50, y=79.00, z=314.21], EntitySheep['Sheep'/259, l='MpServer', x=246.51, y=80.00, z=312.92], EntityChicken['Chicken'/136, l='MpServer', x=134.50, y=40.00, z=244.50], EntityZombie['Zombie'/137, l='MpServer', x=134.48, y=40.35, z=244.40], EntitySkeleton['Skeleton'/138, l='MpServer', x=132.50, y=42.00, z=240.50], EntityBat['Bat'/139, l='MpServer', x=145.21, y=72.10, z=286.44], EntitySkeleton['Skeleton'/140, l='MpServer', x=136.65, y=39.00, z=297.60], EntityZombie['Zombie'/141, l='MpServer', x=140.50, y=39.00, z=294.50], EntityZombie['Zombie'/142, l='MpServer', x=136.30, y=39.00, z=296.72], EntityCreeper['Creeper'/143, l='MpServer', x=135.77, y=39.00, z=296.11], EntityCreeper['Creeper'/144, l='MpServer', x=138.75, y=39.00, z=294.42], EntityZombie['Zombie'/145, l='MpServer', x=134.50, y=47.00, z=318.50], EntitySkeleton['Skeleton'/146, l='MpServer', x=132.50, y=29.00, z=326.50], EntitySkeleton['Skeleton'/166, l='MpServer', x=148.51, y=40.00, z=251.56], EntitySpider['Spider'/167, l='MpServer', x=149.55, y=40.00, z=252.55], EntityBat['Bat'/168, l='MpServer', x=149.47, y=38.58, z=247.75], EntitySpider['Spider'/169, l='MpServer', x=152.50, y=42.00, z=280.50], EntityZombie['Zombie'/170, l='MpServer', x=159.55, y=39.00, z=275.78], EntityCreeper['Creeper'/171, l='MpServer', x=155.50, y=39.00, z=282.50], EntityWitch['Witch'/172, l='MpServer', x=144.50, y=34.00, z=307.50], EntitySkeleton['Skeleton'/188, l='MpServer', x=165.50, y=21.00, z=232.50], EntityZombie['Zombie'/189, l='MpServer', x=164.50, y=20.00, z=224.50], EntitySkeleton['Skeleton'/190, l='MpServer', x=164.50, y=20.00, z=226.50], EntitySkeleton['Skeleton'/191, l='MpServer', x=165.50, y=20.00, z=229.50], EntityZombie['Zombie'/192, l='MpServer', x=161.50, y=21.00, z=235.50], EntityBat['Bat'/193, l='MpServer', x=172.44, y=34.76, z=233.93], EntityBat['Bat'/194, l='MpServer', x=158.25, y=38.45, z=240.67], EntityBat['Bat'/195, l='MpServer', x=162.58, y=35.00, z=240.23], EntityZombie['Zombie'/196, l='MpServer', x=164.48, y=21.00, z=243.20], EntityZombie['Zombie'/197, l='MpServer', x=165.76, y=42.00, z=243.69], EntityZombie['Zombie'/198, l='MpServer', x=167.73, y=42.00, z=243.50], EntitySkeleton['Skeleton'/199, l='MpServer', x=162.50, y=37.00, z=245.50], EntitySkeleton['Skeleton'/200, l='MpServer', x=161.50, y=39.00, z=280.50], EntityBat['Bat'/201, l='MpServer', x=174.48, y=57.01, z=278.16], EntityBat['Bat'/202, l='MpServer', x=172.57, y=59.12, z=274.68], EntityZombie['Zombie'/203, l='MpServer', x=160.50, y=50.00, z=294.50], EntityZombie['Zombie'/215, l='MpServer', x=180.50, y=22.00, z=227.50], EntityBat['Bat'/216, l='MpServer', x=186.54, y=63.10, z=250.75], EntityBat['Bat'/217, l='MpServer', x=181.25, y=58.62, z=280.79], EntitySheep['Sheep'/218, l='MpServer', x=190.28, y=82.00, z=311.16], EntityCreeper['Creeper'/227, l='MpServer', x=200.46, y=49.00, z=241.80], EntitySquid['Squid'/228, l='MpServer', x=201.64, y=51.00, z=277.40], EntitySheep['Sheep'/229, l='MpServer', x=198.23, y=89.00, z=286.51], EntitySheep['Sheep'/230, l='MpServer', x=193.50, y=89.00, z=298.79], EntitySheep['Sheep'/231, l='MpServer', x=202.69, y=88.00, z=296.98], EntitySheep['Sheep'/232, l='MpServer', x=200.45, y=89.00, z=292.82], EntitySheep['Sheep'/233, l='MpServer', x=205.69, y=89.00, z=289.82], EntityEnderman['Enderman'/239, l='MpServer', x=223.50, y=21.00, z=262.50], EntitySheep['Sheep'/240, l='MpServer', x=219.31, y=84.00, z=298.80], EntityPlayerSP['Akuma'/368, l='MpServer', x=190.53, y=63.00, z=271.38], EntitySheep['Sheep'/241, l='MpServer', x=218.78, y=76.00, z=330.52], EntityChicken['Chicken'/117, l='MpServer', x=126.88, y=82.00, z=300.62], EntitySkeleton['Skeleton'/247, l='MpServer', x=224.50, y=21.00, z=262.50], EntitySheep['Sheep'/248, l='MpServer', x=239.54, y=79.00, z=302.73], EntitySheep['Sheep'/249, l='MpServer', x=231.45, y=76.00, z=313.45], EntitySheep['Sheep'/250, l='MpServer', x=228.52, y=78.00, z=326.71]]
+	Retry entities: 0 total; []
+	Server brand: fml,forge
+	Server type: Integrated singleplayer server
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:461)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2889)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:471)
+	at net.minecraft.client.main.Main.main(Main.java:118)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(GradleStartCommon.java:97)
+	at GradleStart.main(GradleStart.java:25)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_241, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 719872040 bytes (686 MB) / 1037959168 bytes (989 MB) up to 1037959168 bytes (989 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	IntCache: cache: 4, tcache: 0, allocated: 13, tallocated: 95
+	FML: MCP 9.42 Powered by Forge 14.23.5.2838 5 mods loaded, 5 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                           | Signature |
+	|:------ |:--------- |:------------ |:-------------------------------- |:--------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                    | None      |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                    | None      |
+	| LCHIJA | FML       | 8.0.99.99    | forgeSrc-1.12.2-14.23.5.2838.jar | None      |
+	| LCHIJA | forge     | 14.23.5.2838 | forgeSrc-1.12.2-14.23.5.2838.jar | None      |
+	| LCHIJA | dmm       | 1.0          | bin                              | None      |
+
+	Loaded coremods (and transformers): 
+	GL info: ' Vendor: 'NVIDIA Corporation' Version: '4.6.0 NVIDIA 431.91' Renderer: 'GeForce GTX 1650/PCIe/SSE2'
+	Launched Version: 1.12.2
+	LWJGL: 2.9.4
+	OpenGL: GeForce GTX 1650/PCIe/SSE2 GL version 4.6.0 NVIDIA 431.91, NVIDIA Corporation
+	GL Caps: Using GL 1.3 multitexturing.
+Using GL 1.3 texture combiners.
+Using framebuffer objects because OpenGL 3.0 is supported and separate blending is supported.
+Shaders are available because OpenGL 2.1 is supported.
+VBOs are available because OpenGL 1.5 is supported.
+
+	Using VBOs: Yes
+	Is Modded: Definitely; Client brand changed to 'fml,forge'
+	Type: Client (map_client.txt)
+	Resource Packs: 
+	Current Language: English (US)
+	Profiler Position: N/A (disabled)
+	CPU: 8x AMD Ryzen 7 3750H with Radeon Vega Mobile Gfx 

@@ -3,6 +3,7 @@ package fr.augma.danmachimenu;
 import fr.augma.danmachimenu.capabilities.PlayerDataCapProvider;
 import fr.augma.danmachimenu.commands.CommandAdminGetXp;
 import fr.augma.danmachimenu.commands.CommandAdminReset;
+import fr.augma.danmachimenu.commands.CommandAdminSetActOfGods;
 import fr.augma.danmachimenu.commands.CommandLevelUp;
 import fr.augma.danmachimenu.commands.CommandRefresh;
 import fr.augma.danmachimenu.commands.CommandStats;
@@ -22,7 +23,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
+
+import java.awt.Color;
+
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = DanMachiMod.MODID, name = DanMachiMod.NAME, version = DanMachiMod.VERSION)
@@ -68,5 +73,6 @@ public class DanMachiMod {
         event.registerServerCommand(new CommandAdminReset());
         event.registerServerCommand(new CommandAdminGetXp());
         event.registerServerCommand(new CommandLevelUp());
+        event.registerServerCommand(new CommandAdminSetActOfGods());
     }
 }

@@ -2,6 +2,8 @@ package fr.augma.danmachimenu.events;
 
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import fr.augma.danmachimenu.capabilities.IPlayerDataCap;
 import fr.augma.danmachimenu.capabilities.PlayerDataCapProvider;
 import fr.augma.danmachimenu.init.ItemsMod;
@@ -16,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -26,6 +29,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber
 public class CommonEventHandler {
@@ -39,8 +43,7 @@ public class CommonEventHandler {
     	pEndurance += 200 * (player.experienceLevel - 1);
     	double pMultiHealth = (pEndurance * 20D) / 11790D;
     	AttributeModifier modifierHealth = new AttributeModifier("speed_modifier", pMultiHealth, 0);
-    	if(player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).hasModifier(modifierHealth))
-    		player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).removeModifier(modifierHealth);
+    	player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).removeAllModifiers();
 		player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(modifierHealth);
 	}
 	
@@ -53,8 +56,7 @@ public class CommonEventHandler {
     	pAgilite += 200 * (player.experienceLevel - 1);
     	double pMultiSpeed = (pAgilite * 0.05D) / 11790;
     	AttributeModifier modifierSpeed = new AttributeModifier("speed_modifier", pMultiSpeed, 0);
-    	if(player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).hasModifier(modifierSpeed))
-    		player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(modifierSpeed);
+    	player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeAllModifiers();
 		player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).applyModifier(modifierSpeed);
 	}
 
@@ -81,7 +83,6 @@ public class CommonEventHandler {
             			pCompoundItem.setInteger("xpSword", pCompoundItem.getInteger("xpSword") + e.getOrb().xpValue);
             		}
             	} else {
-            		p.sendMessage(new TextComponentString("False"));
             		pItemHand.setTagCompound(new NBTTagCompound());
             		pItemHand.getTagCompound().setInteger("xpSword", 0);
             		pItemHand.getTagCompound().setInteger("xpSword", pItemHand.getTagCompound().getInteger("xpSword") + e.getOrb().xpValue);

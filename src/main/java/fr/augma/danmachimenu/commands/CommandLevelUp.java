@@ -1,5 +1,6 @@
 package fr.augma.danmachimenu.commands;
 
+import fr.augma.danmachimenu.capabilities.IPlayerDataCap;
 import fr.augma.danmachimenu.capabilities.PlayerDataCapProvider;
 import fr.augma.danmachimenu.events.CommonEventHandler;
 import net.minecraft.command.CommandBase;
@@ -37,18 +38,26 @@ public class CommandLevelUp extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
+		IPlayerDataCap pCap = player.getCapability(PlayerDataCapProvider.CAPABILITY, null);
 		NBTTagCompound pCapData = player.getCapability(PlayerDataCapProvider.CAPABILITY, null).data();
 		if(pCapData.getInteger("forcelvl" + player.experienceLevel) > 499 || pCapData.getInteger("endurancelvl" + player.experienceLevel) > 499 || pCapData.getInteger("agilitelvl" + player.experienceLevel) > 499 || pCapData.getInteger("dexteritelvl" + player.experienceLevel) > 499 || pCapData.getInteger("magielvl" + player.experienceLevel) > 499) {
-			if(pCapData.getBoolean("levelup")) {
-				player.addExperienceLevel(player.experienceLevel + 1);
-				CommonEventHandler.addMaxHealth(player);
-				CommonEventHandler.addVelocity(player);
-				player.sendMessage(new TextComponentString("--------------------------"));
-				player.sendMessage(new TextComponentString("| Congratulation you have level up !"));
-				player.sendMessage(new TextComponentString("--------------------------"));
+			if(player.experienceLevel == 10) {
+				if(pCap.getLevelUp()) {
+					player.addExperienceLevel(1);
+					pCap.setLevelUp(false);
+					CommonEventHandler.addMaxHealth(player);
+					CommonEventHandler.addVelocity(player);
+					player.sendMessage(new TextComponentString("--------------------------"));
+					player.sendMessage(new TextComponentString("| Congratulation you have level up !"));
+					player.sendMessage(new TextComponentString("--------------------------"));
+				} else {
+					player.sendMessage(new TextComponentString("--------------------------"));
+					player.sendMessage(new TextComponentString("| You haven't done an act recognized by the Gods."));
+					player.sendMessage(new TextComponentString("--------------------------"));
+				}
 			} else {
 				player.sendMessage(new TextComponentString("--------------------------"));
-				player.sendMessage(new TextComponentString("| You haven't done an act recognized by the Gods."));
+				player.sendMessage(new TextComponentString("| You are at the maximum level."));
 				player.sendMessage(new TextComponentString("--------------------------"));
 			}
 		} else {
