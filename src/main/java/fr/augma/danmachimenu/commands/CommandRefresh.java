@@ -18,6 +18,13 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.server.permission.PermissionAPI;
 
 public class CommandRefresh extends CommandBase {
+	
+	public static int getPercentage(int playerLevel) {
+		int playerPercentage = 0;
+		if(playerLevel <= 5) playerPercentage = 20;
+		else playerPercentage = 10;
+		return playerPercentage;
+	}
 
 	public CommandRefresh() {
 		
@@ -53,17 +60,21 @@ public class CommandRefresh extends CommandBase {
 		int pLvl = player.experienceLevel;
 		List<String> attributeList = Arrays.asList("forcelvl", "endurancelvl", "agilitelvl", "dexteritelvl", "magielvl");
 		Random r = new Random();
+		System.out.println(getPercentage(player.experienceLevel));
 		if(pCap.getXP() > 0) {
 			for(int i = 0; i < xpCount; i++) {
-				if(!(pCapData.getInteger("forcelvl"+pLvl) == 999 && pCapData.getInteger("endurancelvl"+pLvl) == 999 && pCapData.getInteger("agilitelvl"+pLvl) == 999 && pCapData.getInteger("dexteritelvl"+pLvl) == 999 && pCapData.getInteger("magielvl"+pLvl) == 999)) {
-					int rInt = r.nextInt(5);
-					if(pCapData.getInteger(attributeList.get(rInt) + pLvl) != 999) {
-						pCapData.setInteger(attributeList.get(rInt) + pLvl, pCapData.getInteger(attributeList.get(rInt) + pLvl) + 1);
+				if(r.nextInt(100) + 1 < getPercentage(player.experienceLevel)) {
+					if(!(pCapData.getInteger("forcelvl"+pLvl) == 999 && pCapData.getInteger("endurancelvl"+pLvl) == 999 && pCapData.getInteger("agilitelvl"+pLvl) == 999 && pCapData.getInteger("dexteritelvl"+pLvl) == 999 && pCapData.getInteger("magielvl"+pLvl) == 999)) {
+						int rInt = r.nextInt(5);
+						if(pCapData.getInteger(attributeList.get(rInt) + pLvl) != 999) {
+							pCapData.setInteger(attributeList.get(rInt) + pLvl, pCapData.getInteger(attributeList.get(rInt) + pLvl) + 1);
+						}
+						
+					} else {
+						maxed = true;
 					}
-					pCap.addXP(-1);
-				} else {
-					maxed = true;
 				}
+				pCap.addXP(-1);
 			}
 			CommonEventHandler.addMaxHealth(player);
 			CommonEventHandler.addVelocity(player);

@@ -41,6 +41,7 @@ public class CommandAdminReset extends CommandBase {
 			}
 		}
 		pCapData.setInteger("xp", 0);
+		player.addExperienceLevel(-(player.experienceLevel - 1));
 		CommonEventHandler.addMaxHealth(player);
 		CommonEventHandler.addVelocity(player);
 		player.sendMessage(new TextComponentString("--------------------------"));
