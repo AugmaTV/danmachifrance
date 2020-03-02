@@ -1,7 +1,12 @@
 package fr.augma.danmachimenu;
 
 import fr.augma.danmachimenu.capabilities.PlayerDataCapProvider;
+import fr.augma.danmachimenu.commands.CommandAdminGetXp;
+import fr.augma.danmachimenu.commands.CommandAdminReset;
+import fr.augma.danmachimenu.commands.CommandLevelUp;
+import fr.augma.danmachimenu.commands.CommandRefresh;
 import fr.augma.danmachimenu.commands.CommandStats;
+import fr.augma.danmachimenu.commands.CommandSword;
 import fr.augma.danmachimenu.common.DanMachiCommon;
 import fr.augma.danmachimenu.ctabs.CreativeTab;
 import fr.augma.danmachimenu.init.BlocksMod;
@@ -32,6 +37,7 @@ public class DanMachiMod {
 
     @Instance(MODID)
     public static DanMachiMod INSTANCE;
+    
     @SidedProxy(clientSide = "fr.augma.danmachimenu.common.DanMachiClient", serverSide = "fr.augma.danmachimenu.common.DanMachiServer")
     public static DanMachiCommon proxy;
     public static SimpleNetworkWrapper network;
@@ -57,5 +63,10 @@ public class DanMachiMod {
     @EventHandler
     public void serverInit(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandStats());
+        event.registerServerCommand(new CommandSword());
+        event.registerServerCommand(new CommandRefresh());
+        event.registerServerCommand(new CommandAdminReset());
+        event.registerServerCommand(new CommandAdminGetXp());
+        event.registerServerCommand(new CommandLevelUp());
     }
 }

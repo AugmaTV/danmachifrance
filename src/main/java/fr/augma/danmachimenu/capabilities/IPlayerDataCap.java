@@ -419,6 +419,14 @@ public interface IPlayerDataCap {
     default void addXP(int xp) {
         this.data().setInteger("xp", this.getXP() + xp);
     }
+    
+    default void setLevelUp(boolean bool) {
+    	this.data().setBoolean("levelup", bool);
+    }
+    
+    default boolean getLevelUp() {
+    	return this.data().getBoolean("levelup");
+    }
 
     class Impl implements IPlayerDataCap {
 

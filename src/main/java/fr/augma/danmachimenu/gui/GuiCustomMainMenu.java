@@ -219,7 +219,7 @@ public class GuiCustomMainMenu extends GuiScreen {
         }*/
 
         this.buttonList.add(new GuiButton(0, this.width / 2 - 170, j + 56, 98, 20, I18n.format("menu.options")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 170, j + 80, 98, 20, I18n.format("menu.singleplayer")));
+        //this.buttonList.add(new GuiButton(1, this.width / 2 - 170, j + 80, 98, 20, I18n.format("menu.singleplayer")));
         this.buttonList.add(new GuiButton(7, this.width / 2 - 100, j + 6 * 1, I18n.format("DanMachi France")));
         this.buttonList.add(new GuiButton(4, this.width / 2 + 72, j + 56, 98, 20, I18n.format("Quitter")));
         //this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, j + 72 + 12));
@@ -235,16 +235,6 @@ public class GuiCustomMainMenu extends GuiScreen {
         }
 
     }
-
-    /**
-     * Adds Singleplayer and Multiplayer buttons on Main Menu for players who have bought the game.
-     *
-     private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_)
-     {
-     this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer")));
-     this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer")));
-     this.buttonList.add(modButton = new GuiButton(6, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("fml.menu.mods")));
-     }*/
 
     /**
      * Adds Demo buttons on Main Menu for players who are playing Demo.
@@ -330,96 +320,6 @@ public class GuiCustomMainMenu extends GuiScreen {
     }
 
     /**
-     * Draws the main menu panorama
-     */
-    /*private void drawPanorama(int mouseX, int mouseY, float partialTicks)
-    {
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuffer();
-        GlStateManager.matrixMode(5889);
-        GlStateManager.pushMatrix();
-        GlStateManager.loadIdentity();
-        Project.gluPerspective(120.0F, 1.0F, 0.05F, 10.0F);
-        GlStateManager.matrixMode(5888);
-        GlStateManager.pushMatrix();
-        GlStateManager.loadIdentity();
-        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
-        GlStateManager.rotate(90.0F, 0.0F, 0.0F, 1.0F);
-        GlStateManager.enableBlend();
-        GlStateManager.disableAlpha();
-        GlStateManager.disableCull();
-        GlStateManager.depthMask(false);
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        int i = 8;
-
-        for (int j = 0; j < 64; ++j)
-        {
-            GlStateManager.pushMatrix();
-            float f = ((float)(j % 8) / 8.0F - 0.5F) / 64.0F;
-            float f1 = ((float)(j / 8) / 8.0F - 0.5F) / 64.0F;
-            float f2 = 0.0F;
-            GlStateManager.translate(f, f1, 0.0F);
-            GlStateManager.rotate(MathHelper.sin(this.panoramaTimer / 400.0F) * 25.0F + 20.0F, 1.0F, 0.0F, 0.0F);
-            GlStateManager.rotate(-this.panoramaTimer * 0.1F, 0.0F, 1.0F, 0.0F);
-
-            for (int k = 0; k < 6; ++k)
-            {
-                GlStateManager.pushMatrix();
-
-                if (k == 1)
-                {
-                    GlStateManager.rotate(90.0F, 0.0F, 1.0F, 0.0F);
-                }
-
-                if (k == 2)
-                {
-                    GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-                }
-
-                if (k == 3)
-                {
-                    GlStateManager.rotate(-90.0F, 0.0F, 1.0F, 0.0F);
-                }
-
-                if (k == 4)
-                {
-                    GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-                }
-
-                if (k == 5)
-                {
-                    GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
-                }
-
-                this.mc.getTextureManager().bindTexture(TITLE_PANORAMA_PATHS[k]);
-                bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-                int l = 255 / (j + 1);
-                float f3 = 0.0F;
-                bufferbuilder.pos(-1.0D, -1.0D, 1.0D).tex(0.0D, 0.0D).color(255, 255, 255, l).endVertex();
-                bufferbuilder.pos(1.0D, -1.0D, 1.0D).tex(1.0D, 0.0D).color(255, 255, 255, l).endVertex();
-                bufferbuilder.pos(1.0D, 1.0D, 1.0D).tex(1.0D, 1.0D).color(255, 255, 255, l).endVertex();
-                bufferbuilder.pos(-1.0D, 1.0D, 1.0D).tex(0.0D, 1.0D).color(255, 255, 255, l).endVertex();
-                tessellator.draw();
-                GlStateManager.popMatrix();
-            }
-
-            GlStateManager.popMatrix();
-            GlStateManager.colorMask(true, true, true, false);
-        }
-
-        bufferbuilder.setTranslation(0.0D, 0.0D, 0.0D);
-        GlStateManager.colorMask(true, true, true, true);
-        GlStateManager.matrixMode(5889);
-        GlStateManager.popMatrix();
-        GlStateManager.matrixMode(5888);
-        GlStateManager.popMatrix();
-        GlStateManager.depthMask(true);
-        GlStateManager.enableCull();
-        GlStateManager.enableDepth();
-    }*/
-
-    /**
      * Rotate and blurs the skybox view in the main menu
      */
     private void rotateAndBlurSkybox() {
@@ -453,38 +353,6 @@ public class GuiCustomMainMenu extends GuiScreen {
     }
 
     /**
-     * Renders the skybox in the main menu
-     */
-    /*private void renderSkybox(int mouseX, int mouseY, float partialTicks)
-    {
-        this.mc.getFramebuffer().unbindFramebuffer();
-        GlStateManager.viewport(0, 0, 256, 256);
-        this.drawPanorama(mouseX, mouseY, partialTicks);
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.rotateAndBlurSkybox();
-        this.mc.getFramebuffer().bindFramebuffer(true);
-        GlStateManager.viewport(0, 0, this.mc.displayWidth, this.mc.displayHeight);
-        float f = 120.0F / (float)(this.width > this.height ? this.width : this.height);
-        float f1 = (float)this.height * f / 256.0F;
-        float f2 = (float)this.width * f / 256.0F;
-        int i = this.width;
-        int j = this.height;
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        bufferbuilder.pos(0.0D, (double)j, (double)this.zLevel).tex((double)(0.5F - f1), (double)(0.5F + f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos((double)i, (double)j, (double)this.zLevel).tex((double)(0.5F - f1), (double)(0.5F - f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos((double)i, 0.0D, (double)this.zLevel).tex((double)(0.5F + f1), (double)(0.5F - f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(0.5F + f1), (double)(0.5F + f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        tessellator.draw();
-    }*/
-
-    /**
      * Draws the screen and all the components in it.
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -497,59 +365,27 @@ public class GuiCustomMainMenu extends GuiScreen {
         int k = 30;
         this.mc.getTextureManager().bindTexture(MTITLE_TEXTURE);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        Gui.drawScaledCustomSizeModalRect(this.width / 2 - 105, 25, 0, 0, 1, 1, 220, 70, 1, 1);
-
-        /*if ((double)this.minceraftRoll < 1.0E-4D)
-        {
-            this.drawTexturedModalRect(j + 0, 30, 0, 0, 99, 44);
-            this.drawTexturedModalRect(j + 99, 30, 129, 0, 27, 44);
-            this.drawTexturedModalRect(j + 99 + 26, 30, 126, 0, 3, 44);
-            this.drawTexturedModalRect(j + 99 + 26 + 3, 30, 99, 0, 26, 44);
-            this.drawTexturedModalRect(j + 155, 30, 0, 45, 155, 44);
-        }
-        else
-        {
-            this.drawTexturedModalRect(j + 0, 30, 0, 0, 155, 44);
-            this.drawTexturedModalRect(j + 155, 30, 0, 45, 155, 44);
-        }*/
-
-        //this.mc.getTextureManager().bindTexture(field_194400_H);
-        //drawModalRectWithCustomSizedTexture(j + 88, 67, 0.0F, 0.0F, 98, 14, 128.0F, 16.0F);
-
-
+        Gui.drawScaledCustomSizeModalRect(this.width / 2 - 105, 10, 0, 0, 1, 1, 220, 70, 1, 1);
         GlStateManager.pushMatrix();
-        /*GlStateManager.translate((float)(this.width / 2 + 90), 70.0F, 0.0F);
-        GlStateManager.rotate(-20.0F, 0.0F, 0.0F, 1.0F);
-        float f = 1.8F - MathHelper.abs(MathHelper.sin((float)(Minecraft.getSystemTime() % 1000L) / 1000.0F * ((float)Math.PI * 2F)) * 0.1F);
-        f = f * 100.0F / (float)(this.fontRenderer.getStringWidth(this.splashText) + 32);
-        GlStateManager.scale(f, f, f);
-        this.drawCenteredString(this.fontRenderer, this.splashText, 0, -8, -256);*/
         GlStateManager.popMatrix();
-        String s = "Minecraft 1.12.2";
 
-        if (this.mc.isDemo()) {
-            s = s + " Demo";
-        } else {
-            s = s + ("release".equalsIgnoreCase(this.mc.getVersionType()) ? "" : "/" + this.mc.getVersionType());
-        }
-
-        /*java.util.List<String> brandings = com.google.common.collect.Lists.reverse(net.minecraftforge.fml.common.FMLCommonHandler.instance().getBrandings(true));
+        java.util.List<String> brandings = com.google.common.collect.Lists.reverse(net.minecraftforge.fml.common.FMLCommonHandler.instance().getBrandings(true));
         for (int brdline = 0; brdline < brandings.size(); brdline++)
         {
             String brd = brandings.get(brdline);
             if (!com.google.common.base.Strings.isNullOrEmpty(brd))
             {
-                this.drawString(this.fontRenderer, brd, 2, this.height - ( 10 + brdline * (this.fontRenderer.FONT_HEIGHT + 1)), 16777215);
+                this.drawString(this.fontRenderer, brd, 2, (this.height - 10) - ( 10 + brdline * (this.fontRenderer.FONT_HEIGHT + 1)), 16777215);
             }
-        }*/
-        this.drawString(this.fontRenderer, "DanMachi France Menu Mod Made By Augma", 2, this.height - (10 + 0 * (this.fontRenderer.FONT_HEIGHT + 1)), 16777215);
+        }
+        this.drawString(this.fontRenderer, "DanMachi France Menu Mod Made By Augma", 2, this.height - 10, 16777215);
 
         if (this.openGLWarning1 != null && !this.openGLWarning1.isEmpty()) {
             drawRect(this.openGLWarningX1 - 2, this.openGLWarningY1 - 2, this.openGLWarningX2 + 2, this.openGLWarningY2 - 1, 1428160512);
             this.drawString(this.fontRenderer, this.openGLWarning1, this.openGLWarningX1, this.openGLWarningY1, -1);
             this.drawString(this.fontRenderer, this.openGLWarning2, (this.width - this.openGLWarning2Width) / 2, (this.buttonList.get(0)).y - 12, -1);
         }
-
+        
         this.drawString(this.fontRenderer, "Copyright Mojang AB. Do not distribute!", this.widthCopyrightRest, this.height - 10, -1);
         if (mouseX > this.widthCopyrightRest && mouseX < this.widthCopyrightRest + this.widthCopyright && mouseY > this.height - 10 && mouseY < this.height && Mouse.isInsideWindow()) {
             drawRect(this.widthCopyrightRest, this.height - 1, this.widthCopyrightRest + this.widthCopyright, this.height, -1);
@@ -607,19 +443,6 @@ public class GuiCustomMainMenu extends GuiScreen {
             this.drawString(this.fontRenderer, this.server.populationInfo + TextFormatting.BOLD, this.width / 2 - 25, this.height / 4 + 40, 0x245791);
 
             this.drawString(this.fontRenderer, " | " + TextFormatting.GRAY + this.server.pingToServer + " ms", this.width / 2, this.height / 4 + 40, 0x245791);
-
-            /*if(this.server.playerList != null && !this.server.playerList.isEmpty())
-            {
-                List <String>list = this.mc.fontRenderer.listFormattedStringToWidth(this.server.playerList, this.width - (this.width / 2 + 110));
-                for(int i1 = 0;i1 < list.size(); i1++)
-                {
-                    if(i1 >= 10)
-                    {
-                        break;
-                    }
-                    this.drawString(this.fontRenderer, list.get(i1), this.width / 2 + 110, this.height / 4 + 92 + 10 * i1, 0x245791);
-                }
-            }*/
         }
     }
 
