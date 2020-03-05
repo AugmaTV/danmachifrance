@@ -1,5 +1,4 @@
 tile.blocktuto.name=Block de test
 item.itemtuto.name=Item de test
-item.hestia_dagger.name=Dague d'Hestia
-itemGroup.dmm=DanMachiFrance Mod
-command.dmfstatistique.usage=/dmfstatistique
+item.hestia_dagger.name=Dague Hestia
+itemGroup.dmm=DanMachiFranceMod
