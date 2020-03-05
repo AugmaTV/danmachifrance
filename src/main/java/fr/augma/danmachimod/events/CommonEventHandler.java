@@ -42,8 +42,10 @@ public class CommonEventHandler {
     	}
     	pEndurance += 200 * (player.experienceLevel - 1);
     	double pMultiHealth = (pEndurance * 20D) / 11790D;
-    	AttributeModifier modifierHealth = new AttributeModifier("speed_modifier", pMultiHealth, 0);
-    	player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).removeAllModifiers();
+    	AttributeModifier modifierHealth = new AttributeModifier("health_modifier", pMultiHealth, 0);
+    	for(AttributeModifier a : player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getModifiers()) {
+    		player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).removeModifier(a.getID());
+    	}
 		player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(modifierHealth);
 	}
 	
@@ -56,8 +58,11 @@ public class CommonEventHandler {
     	pAgilite += 200 * (player.experienceLevel - 1);
     	double pMultiSpeed = (pAgilite * 0.05D) / 11790;
     	AttributeModifier modifierSpeed = new AttributeModifier("speed_modifier", pMultiSpeed, 0);
-    	player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeAllModifiers();
+    	for(AttributeModifier a : player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getModifiers()) {
+    		player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(a.getID());
+    	}
 		player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).applyModifier(modifierSpeed);
+		System.out.println(player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 	}
 
     @SubscribeEvent
