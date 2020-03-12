@@ -20,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 import fr.augma.danmachimod.capabilities.PlayerDataCapProvider;
 import fr.augma.danmachimod.commands.CommandDmf;
 import fr.augma.danmachimod.commands.CommandDmfAdmin;
+import fr.augma.danmachimod.commands.CommandFamilia;
 import fr.augma.danmachimod.common.DanMachiCommon;
 import fr.augma.danmachimod.ctabs.CreativeTab;
 import fr.augma.danmachimod.init.BlocksMod;
@@ -65,5 +66,6 @@ public class DanMachiMod {
     public void serverInit(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandDmf());
         event.registerServerCommand(new CommandDmfAdmin());
+        event.registerServerCommand(new CommandFamilia());
     }
 }

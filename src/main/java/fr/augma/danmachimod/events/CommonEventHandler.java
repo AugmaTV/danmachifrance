@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
@@ -114,23 +115,27 @@ public class CommonEventHandler {
         	EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
         	IPlayerDataCap pCap = player.getCapability(PlayerDataCapProvider.CAPABILITY, null);
         	Random r = new Random();
+        	float pForce = 0F;
+        	float pDexte = 0F;
+        	float pMulti = 0F;
+        	float pCoefDexte = 0F;
+        	float damage = 0F;
         	
-        	float pForce = 0;
         	for(int i = 1; i < 11; i++) {
         		pForce += pCap.data().getInteger("forcelvl" + i);
         	}
-        	
-        	float pDexte = 0;
         	for(int j = 1; j < 11; j++) {
         		pDexte += pCap.data().getInteger("dexteritelvl" + j);
         	}
-        	pForce += 200 * (player.experienceLevel - 1);
-        	float pMulti = (pForce * 9) / 11790 + 1;
-        	float pCoefDexte = (pDexte * 10) / 11790;
-        	float damage = event.getAmount() * pMulti;
         	
-        	if((r.nextDouble() * 100) <= pCoefDexte) {
+        	pForce += 200 * (player.experienceLevel - 1);
+        	pMulti = (pForce * 9.0F) / 11790 + 1;
+        	pCoefDexte = (pDexte * 25.0F) / 11790;
+        	damage = event.getAmount() * pMulti;
+        	
+        	if(r.nextDouble() * 100 <= pCoefDexte) {
         		damage = damage * 1.5F;
+        		player.sendMessage(new TextComponentString(TextFormatting.DARK_GRAY + "CRITICAL"));
         	}
             event.setAmount(damage);
         }

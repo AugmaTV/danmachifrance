@@ -422,7 +422,7 @@ public class GuiCustomMainMenu extends GuiScreen {
 
                         GuiCustomMainMenu.this.server.pingToServer = -1L;
 
-                        GuiCustomMainMenu.this.server.serverMOTD = TextFormatting.DARK_RED + "Impossible de rï¿½soudre le nom d'hï¿½te";
+                        GuiCustomMainMenu.this.server.serverMOTD = TextFormatting.DARK_RED + "Impossible de résoudre le nom d'hôte";
 
                         // on peut aussi utiliser I18n pour passer par les fichiers de langage
 
