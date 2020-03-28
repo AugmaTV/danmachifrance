@@ -6,6 +6,8 @@ import javax.annotation.Nonnull;
 
 import fr.augma.danmachimod.capabilities.IPlayerDataCap;
 import fr.augma.danmachimod.capabilities.PlayerDataCapProvider;
+import fr.augma.danmachimod.common.DanMachiServer;
+import fr.augma.danmachimod.config.ConfigBase;
 import fr.augma.danmachimod.init.ItemsMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -104,6 +106,13 @@ public class CommonEventHandler {
         if (event.player.experienceLevel == 0) {
         	event.player.addExperienceLevel(1);
         }
+        
+        ConfigBase dataPlayer = new ConfigBase("data/player");
+        
+        if(!dataPlayer.hasCategory(event.player.getUniqueID().toString())) {
+	        dataPlayer.writeConfig(event.player.getUniqueID().toString(), "nickname", event.player.getName());
+	       	dataPlayer.writeConfig(event.player.getUniqueID().toString(), "familia", "null");
+	    }
         addVelocity(event.player);
         addMaxHealth(event.player);
     }

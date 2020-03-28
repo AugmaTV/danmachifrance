@@ -220,7 +220,7 @@ public class GuiCustomMainMenu extends GuiScreen {
         }*/
 
         this.buttonList.add(new GuiButton(0, this.width / 2 - 170, j + 56, 98, 20, I18n.format("menu.options")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 170, j + 80, 98, 20, I18n.format("menu.singleplayer")));
+        //this.buttonList.add(new GuiButton(1, this.width / 2 - 170, j + 80, 98, 20, I18n.format("menu.singleplayer")));
         this.buttonList.add(new GuiButton(7, this.width / 2 - 100, j + 6 * 1, I18n.format("DanMachi France")));
         this.buttonList.add(new GuiButton(4, this.width / 2 + 72, j + 56, 98, 20, I18n.format("Quitter")));
         //this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, j + 72 + 12));
@@ -280,7 +280,7 @@ public class GuiCustomMainMenu extends GuiScreen {
         }
 
         if (button.id == 7) {
-            FMLClientHandler.instance().connectToServer(this, new ServerData("localserver", "danmachifrance.serverminer.com", false));
+            FMLClientHandler.instance().connectToServer(this, new ServerData("localserver","danmachifrance.serverminer.com" , false));//"localhost"
         }
 
         if (button.id == 11) {
@@ -422,7 +422,7 @@ public class GuiCustomMainMenu extends GuiScreen {
 
                         GuiCustomMainMenu.this.server.pingToServer = -1L;
 
-                        GuiCustomMainMenu.this.server.serverMOTD = TextFormatting.DARK_RED + "Impossible de résoudre le nom d'hôte";
+                        GuiCustomMainMenu.this.server.serverMOTD = TextFormatting.DARK_RED + "Impossible de rï¿½soudre le nom d'hï¿½te";
 
                         // on peut aussi utiliser I18n pour passer par les fichiers de langage
 

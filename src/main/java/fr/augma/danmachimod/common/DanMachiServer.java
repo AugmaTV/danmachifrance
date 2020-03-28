@@ -3,11 +3,13 @@ package fr.augma.danmachimod.common;
 import java.io.File;
 
 import fr.augma.danmachimod.DanMachiMod;
+import fr.augma.danmachimod.commands.CommandFamilia;
 import fr.augma.danmachimod.config.ConfigBase;
 
 public class DanMachiServer extends DanMachiCommon {
 	public static ConfigBase modConfig;
 	public static ConfigBase dataFamilia;
+	public static ConfigBase dataPlayer;
 	
     @Override
     public void preInit(File configFile) {
@@ -15,11 +17,8 @@ public class DanMachiServer extends DanMachiCommon {
         System.out.println("pre init coté server");
 
         modConfig = new ConfigBase(DanMachiMod.MODID);
-        modConfig.writeConfig("test", "JeanNeyMarre", "oui");
-        modConfig.writeConfig("test", "JeanPeuPlus", "non");
-        
+        dataPlayer = new ConfigBase("data/player");
         dataFamilia = new ConfigBase("data/familia");
-        dataFamilia.writeConfig("FamiliaName", "Leader", "Akuma");
     }
 
     @Override

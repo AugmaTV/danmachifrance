@@ -15,6 +15,7 @@ public class ConfigBase {
 	public static Configuration config;
 	private static String filePath;
 	
+	
 	public ConfigBase(String fileName) {
 		filePath = "config/danmachifrance/" + fileName + ".cfg";
 		config = new Configuration(new File(filePath));
@@ -332,4 +333,12 @@ public class ConfigBase {
 		return property.getStringList();
 	}
 
+	public void writeBasicsFamilia(String familiaName, String name) {
+		writeConfig(familiaName, "leader", name);
+		writeConfig(familiaName, "score", 0);
+		writeConfig(familiaName, "familiaName", familiaName);
+		writeConfig(familiaName, "description", "Premiere description de familia :)");
+		setList(familiaName, "members", new String[] {}, null);
+		setList(familiaName, "officers", new String[] {}, null);
+	}
 }

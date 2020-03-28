@@ -26,7 +26,7 @@ public class CommandDmfAdmin extends CommandBase {
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "It's a command only for admin";
+		return "c'est une commande seulement pour les administrateur";
 	}
 	
 	public int getRequiredPermissionLevel() {	
@@ -52,14 +52,15 @@ public class CommandDmfAdmin extends CommandBase {
 		 */
 		if(args.length < 1) {
 			player.sendMessage(new TextComponentString("--------------------------"));
-        	player.sendMessage(new TextComponentString("| /dmfadmin > Show command list and usage."));
-			player.sendMessage(new TextComponentString("| /dmfadmin stats <player> > Show the statistics of an player."));
-			player.sendMessage(new TextComponentString("| /dmfadmin refresh <player> > Refresh your stats or stats of an other player."));
-			player.sendMessage(new TextComponentString("| /dmfadmin overall [<player>] > See the overall stats + stats with level for you or an other player."));
-			player.sendMessage(new TextComponentString("| /dmfadmin reset [<player>] > Reset you'r stats of for an other player."));
-			player.sendMessage(new TextComponentString("| /dmfadmin aog [<player>] > Set the Act Of Gods to true for an player or for you."));
-			player.sendMessage(new TextComponentString("| /dmfadmin levelup <player> > Command for level up an player."));
-			player.sendMessage(new TextComponentString("| /dmfadmin addxp <player> [<number>] > Command to set xp, default 100, for an player."));
+        	player.sendMessage(new TextComponentString("| /dmfadmin > Liste des commandes."));
+			player.sendMessage(new TextComponentString("| /dmfadmin stats <player> > Montre les statistiques d'un joueur."));
+			player.sendMessage(new TextComponentString("| /dmfadmin refresh <player> > Actualise les statistiques d'un joueur."));
+			player.sendMessage(new TextComponentString("| /dmfadmin overall [<player>] > Permet de voir le cumule de statistiques complète d'un joueur ou, si non renseigner, du lanceur de la commande."));
+			player.sendMessage(new TextComponentString("| /dmfadmin reset [<player>] > Hard reset les statistiques du joueur ou, si non renseigner, du lanceur de la commande."));
+			player.sendMessage(new TextComponentString("| /dmfadmin aog [<player>] > Change l'état de l'acte reconnu par les dieux."));
+			player.sendMessage(new TextComponentString("| /dmfadmin levelup <player> > Permet de levelup un joueur si il y est éligible."));
+			player.sendMessage(new TextComponentString("| /dmfadmin addxp <player> [<number>] > Ajoute de l'xp à un joueur ou, si non renseigner, au lanceur de la commande."));
+			player.sendMessage(new TextComponentString("| La valeur par défaut est 100."));
 			player.sendMessage(new TextComponentString("--------------------------"));
 			
 		/*
@@ -68,7 +69,7 @@ public class CommandDmfAdmin extends CommandBase {
 		} else if("stats".equalsIgnoreCase(args[0])) {
 			if(args.length < 2) {
 				player.sendMessage(new TextComponentString("--------------------------"));
-				player.sendMessage(new TextComponentString("| Precise the player please."));
+				player.sendMessage(new TextComponentString("| Précise un nom de joueur."));
 				player.sendMessage(new TextComponentString("| /dmfadmin stats <player>."));
 				player.sendMessage(new TextComponentString("--------------------------"));
 			} else {
@@ -77,18 +78,18 @@ public class CommandDmfAdmin extends CommandBase {
 					tCap = target.getCapability(PlayerDataCapProvider.CAPABILITY, null);
 					tCapData = tCap.data();
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| You'r level > " + target.experienceLevel + "."));
-					player.sendMessage(new TextComponentString("| You'r xp in stock > " + tCap.getXP() + " xp."));
-		        	player.sendMessage(new TextComponentString("| Strength > " + CommandDmf.getNote(tCapData.getInteger("forcelvl" + target.experienceLevel)) + "."));
-		        	player.sendMessage(new TextComponentString("| Stamina > " + CommandDmf.getNote(tCapData.getInteger("endurancelvl" + target.experienceLevel)) + "."));
-		        	player.sendMessage(new TextComponentString("| Agility > " + CommandDmf.getNote(tCapData.getInteger("agilitelvl" + target.experienceLevel)) + "."));
-		        	player.sendMessage(new TextComponentString("| Dexterity > " + CommandDmf.getNote(tCapData.getInteger("dexteritelvl" + target.experienceLevel)) + "."));
+					player.sendMessage(new TextComponentString("| Level > " + target.experienceLevel + "."));
+					player.sendMessage(new TextComponentString("| Falnas > " + tCap.getXP() + " xp."));
+		        	player.sendMessage(new TextComponentString("| Force > " + CommandDmf.getNote(tCapData.getInteger("forcelvl" + target.experienceLevel)) + "."));
+		        	player.sendMessage(new TextComponentString("| Endurance > " + CommandDmf.getNote(tCapData.getInteger("endurancelvl" + target.experienceLevel)) + "."));
+		        	player.sendMessage(new TextComponentString("| Agilité > " + CommandDmf.getNote(tCapData.getInteger("agilitelvl" + target.experienceLevel)) + "."));
+		        	player.sendMessage(new TextComponentString("| Dexterité > " + CommandDmf.getNote(tCapData.getInteger("dexteritelvl" + target.experienceLevel)) + "."));
 		        	player.sendMessage(new TextComponentString("| Magie > " + CommandDmf.getNote(tCapData.getInteger("magielvl" + target.experienceLevel)) + "."));
-		        	player.sendMessage(new TextComponentString("| Act of Gods > " + tCap.getLevelUp()));
+		        	player.sendMessage(new TextComponentString("| Acte reconnu des dieux > " + tCap.getLevelUp()));
 		        	player.sendMessage(new TextComponentString("--------------------------"));
 				} else {
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| The player \"" + args[1] + "\" was not found."));
+					player.sendMessage(new TextComponentString("| Le joueur \"" + args[1] + "\" n'as pas été trouver."));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				}
 			}
@@ -98,7 +99,7 @@ public class CommandDmfAdmin extends CommandBase {
 		} else if("refresh".equalsIgnoreCase(args[0])) {
 			if(args.length < 2) {
 				player.sendMessage(new TextComponentString("--------------------------"));
-				player.sendMessage(new TextComponentString("| Precise the player please."));
+				player.sendMessage(new TextComponentString("| Précise un nom de joueur."));
 				player.sendMessage(new TextComponentString("| /dmfadmin refresh <player>."));
 				player.sendMessage(new TextComponentString("--------------------------"));
 			} else {
@@ -129,24 +130,24 @@ public class CommandDmfAdmin extends CommandBase {
 		    			CommonEventHandler.addVelocity(target);
 		    			if(maxed) {
 		    				player.sendMessage(new TextComponentString("--------------------------"));
-		    	    		player.sendMessage(new TextComponentString("| He is full of statistics for his level !"));
+		    	    		player.sendMessage(new TextComponentString("| Il est max en statistiques !"));
 		    	    		if(target.experienceLevel == 10) {
-		    	    			player.sendMessage(new TextComponentString("| He is at the maximum level, powerfull !"));
+		    	    			player.sendMessage(new TextComponentString("| Il est au level maximum, quel puissance !"));
 		    	    		}
 		    	    		player.sendMessage(new TextComponentString("--------------------------"));
 		    			} else {
 		    				player.sendMessage(new TextComponentString("--------------------------"));
-		    				player.sendMessage(new TextComponentString("| Statistics refresh !"));
+		    				player.sendMessage(new TextComponentString("| Statistiques actualisé !"));
 		    				player.sendMessage(new TextComponentString("--------------------------"));
 		    			}
 		    		} else {
 		    			player.sendMessage(new TextComponentString("--------------------------"));
-		    			player.sendMessage(new TextComponentString("| He don't have enough falnas"));
+		    			player.sendMessage(new TextComponentString("| Il n'a pas assez de falnas."));
 		    			player.sendMessage(new TextComponentString("--------------------------"));
 		    		}
 				} else {
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| The player \"" + args[1] + "\" was not found."));
+					player.sendMessage(new TextComponentString("| Le joueur \"" + args[1] + "\" n'a pas été trouver."));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				}
 			}
@@ -156,12 +157,14 @@ public class CommandDmfAdmin extends CommandBase {
 		} else if("overall".equalsIgnoreCase(args[0])) {
 			if(args.length < 2) {
 				player.sendMessage(new TextComponentString("--------------------------"));
-				player.sendMessage(new TextComponentString("| Level > " + pCap.getXP() + "."));
-				player.sendMessage(new TextComponentString("| Sums of strength > " + (pCap.getSumsForce() + (player.experienceLevel - 1) * 200)));
-				player.sendMessage(new TextComponentString("| Sums of stamina > " + (pCap.getSumsEndurance() + (player.experienceLevel - 1) * 200)));
-				player.sendMessage(new TextComponentString("| Sums of agility > " + (pCap.getSumsAgilite() + (player.experienceLevel - 1) * 200)));
-				player.sendMessage(new TextComponentString("| Sums of dexterity > " + (pCap.getSumsDexterite() + (player.experienceLevel - 1) * 200)));
-				player.sendMessage(new TextComponentString("| Sums of magie > " + (pCap.getSumsMagie() + (player.experienceLevel - 1) * 200)));
+				player.sendMessage(new TextComponentString("| Level > " + player.experienceLevel + "."));
+				player.sendMessage(new TextComponentString("| Gain grâce au level > " + (player.experienceLevel - 1) * 200 + "."));
+				player.sendMessage(new TextComponentString("| Somme de la force > " + (pCap.getSumsForce() + (player.experienceLevel - 1) * 200)));
+				player.sendMessage(new TextComponentString("| Somme de l'endurance > " + (pCap.getSumsEndurance() + (player.experienceLevel - 1) * 200)));
+				player.sendMessage(new TextComponentString("| Somme de l'agilité > " + (pCap.getSumsAgilite() + (player.experienceLevel - 1) * 200)));
+				player.sendMessage(new TextComponentString("| Somme de la dextérité > " + (pCap.getSumsDexterite() + (player.experienceLevel - 1) * 200)));
+				player.sendMessage(new TextComponentString("| Somme de la magie > " + (pCap.getSumsMagie() + (player.experienceLevel - 1) * 200)));
+				player.sendMessage(new TextComponentString("| Total > " + pCap.getTotalSums() + (player.experienceLevel - 1) * 200 + "."));
 				player.sendMessage(new TextComponentString("--------------------------"));
 			} else {
 				target = server.getPlayerList().getPlayerByUsername(args[1]);
@@ -169,17 +172,18 @@ public class CommandDmfAdmin extends CommandBase {
 					tCap = target.getCapability(PlayerDataCapProvider.CAPABILITY, null);
 					tCapData = tCap.data();
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| Player > " + args[1] + "."));
-					player.sendMessage(new TextComponentString("| Level > " + tCap.getXP() + "."));
-					player.sendMessage(new TextComponentString("| Sums of strength > " + (tCap.getSumsForce() + (target.experienceLevel - 1) * 200) + "."));
-					player.sendMessage(new TextComponentString("| Sums of stamina > " + (tCap.getSumsEndurance() + (target.experienceLevel - 1) * 200) + "."));
-					player.sendMessage(new TextComponentString("| Sums of agility > " + (tCap.getSumsAgilite() + (target.experienceLevel - 1) * 200) + "."));
-					player.sendMessage(new TextComponentString("| Sums of dexterity > " + (pCap.getSumsDexterite() + (target.experienceLevel - 1) * 200) + "."));
-					player.sendMessage(new TextComponentString("| Sums of magie > " + (tCap.getSumsMagie() + (target.experienceLevel - 1) * 200) + "."));
+					player.sendMessage(new TextComponentString("| Level > " + target.experienceLevel + "."));
+					player.sendMessage(new TextComponentString("| Gain grâce au level > " + (target.experienceLevel - 1) * 200 + "."));
+					player.sendMessage(new TextComponentString("| Somme de la force > " + (tCap.getSumsForce() + (target.experienceLevel - 1) * 200)));
+					player.sendMessage(new TextComponentString("| Somme de l'endurance > " + (tCap.getSumsEndurance() + (target.experienceLevel - 1) * 200)));
+					player.sendMessage(new TextComponentString("| Somme de l'agilité > " + (tCap.getSumsAgilite() + (target.experienceLevel - 1) * 200)));
+					player.sendMessage(new TextComponentString("| Somme de la dextérité > " + (tCap.getSumsDexterite() + (target.experienceLevel - 1) * 200)));
+					player.sendMessage(new TextComponentString("| Somme de la magie > " + (tCap.getSumsMagie() + (target.experienceLevel - 1) * 200)));
+					player.sendMessage(new TextComponentString("| Total > " + tCap.getTotalSums() + (target.experienceLevel - 1) * 200 + "."));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				} else {
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| The player \"" + args[1] + "\" was not found."));
+					player.sendMessage(new TextComponentString("| Le joueur \"" + args[1] + "\" n'a pas été trouver."));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				}
 			}
@@ -199,7 +203,7 @@ public class CommandDmfAdmin extends CommandBase {
 				CommonEventHandler.addMaxHealth(player);
 				CommonEventHandler.addVelocity(player);
 				player.sendMessage(new TextComponentString("--------------------------"));
-				player.sendMessage(new TextComponentString("| Reset success !"));
+				player.sendMessage(new TextComponentString("| Reset réussi !"));
 				player.sendMessage(new TextComponentString("--------------------------"));
 			} else {
 				target = server.getPlayerList().getPlayerByUsername(args[1]);
@@ -216,11 +220,11 @@ public class CommandDmfAdmin extends CommandBase {
 					CommonEventHandler.addMaxHealth(target);
 					CommonEventHandler.addVelocity(target);
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| Reset success !"));
+					player.sendMessage(new TextComponentString("| Reset reussi !"));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				} else {
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| The player \"" + args[1] + "\" was not found."));
+					player.sendMessage(new TextComponentString("| Le joueur \"" + args[1] + "\" n'a pas été trouver."));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				}
 			}
@@ -231,7 +235,7 @@ public class CommandDmfAdmin extends CommandBase {
 			if(args.length < 2) {
 				pCap.setLevelUp(true);
 				player.sendMessage(new TextComponentString("--------------------------"));
-				player.sendMessage(new TextComponentString("| You'r Act Of Gods is now true"));
+				player.sendMessage(new TextComponentString("| L'acte reconnu des dieux à été activer."));
 				player.sendMessage(new TextComponentString("--------------------------"));
 			} else {
 				target = server.getPlayerList().getPlayerByUsername(args[1]);
@@ -239,11 +243,11 @@ public class CommandDmfAdmin extends CommandBase {
 					tCap = target.getCapability(PlayerDataCapProvider.CAPABILITY, null);
 					tCap.setLevelUp(true);
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| The Act Of Gods for " + args[1] + " is now true"));
+					player.sendMessage(new TextComponentString("| L'acte reconnu des dieux de " + args[1] + " à été activer."));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				} else {
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| The player \"" + args[1] + "\" was not found."));
+					player.sendMessage(new TextComponentString("| Le joueur \"" + args[1] + "\" n'a pas été trouver."));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				}
 			}
@@ -253,7 +257,7 @@ public class CommandDmfAdmin extends CommandBase {
 		} else if("levelup".equalsIgnoreCase(args[0])) {
 			if(args.length < 2) {
 				player.sendMessage(new TextComponentString("--------------------------"));
-				player.sendMessage(new TextComponentString("| Precise the player please."));
+				player.sendMessage(new TextComponentString("| Précise un nom de joueur."));
 				player.sendMessage(new TextComponentString("| /dmfadmin levelup <player>."));
 				player.sendMessage(new TextComponentString("--------------------------"));
 			} else {
@@ -269,30 +273,30 @@ public class CommandDmfAdmin extends CommandBase {
 		    					CommonEventHandler.addMaxHealth(player);
 		    					CommonEventHandler.addVelocity(player);
 		    					target.sendMessage(new TextComponentString("--------------------------"));
-		    					target.sendMessage(new TextComponentString("| Congratulation you have level up !"));
+		    					target.sendMessage(new TextComponentString("| Bravo tu as level up !"));
 		    					target.sendMessage(new TextComponentString("--------------------------"));
 		    					
 		    					player.sendMessage(new TextComponentString("--------------------------"));
-		    					player.sendMessage(new TextComponentString("| The player have level up."));
+		    					player.sendMessage(new TextComponentString("| Le joueur a level up."));
 		    					player.sendMessage(new TextComponentString("--------------------------"));
 		    				} else {
 		    					player.sendMessage(new TextComponentString("--------------------------"));
-		    					player.sendMessage(new TextComponentString("| He haven't done an act recognized by the Gods."));
+		    					player.sendMessage(new TextComponentString("| Le joueur n'a pas effectué d'acte reconnu des dieux."));
 		    					player.sendMessage(new TextComponentString("--------------------------"));
 		    				}
 		    			} else {
 		    				player.sendMessage(new TextComponentString("--------------------------"));
-		    				player.sendMessage(new TextComponentString("| He is at the maximum level."));
+		    				player.sendMessage(new TextComponentString("| Il est déjà au niveau maximum."));
 		    				player.sendMessage(new TextComponentString("--------------------------"));
 		    			}
 		    		} else {
 		    			player.sendMessage(new TextComponentString("--------------------------"));
-		    			player.sendMessage(new TextComponentString("| He is unworthy of reaching the next level."));
+		    			player.sendMessage(new TextComponentString("| Le joueur n'est pas apte à level up."));
 		    			player.sendMessage(new TextComponentString("--------------------------"));
 		    		}
 				} else {
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| The player \"" + args[1] + "\" was not found."));
+					player.sendMessage(new TextComponentString("| Le joueur \"" + args[1] + "\" n'a pas été trouver."));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				}
 			}
@@ -302,7 +306,7 @@ public class CommandDmfAdmin extends CommandBase {
 		} else if("addxp".equalsIgnoreCase(args[0])) {
 			if(args.length < 2) {
 				player.sendMessage(new TextComponentString("--------------------------"));
-				player.sendMessage(new TextComponentString("| Precise the player please."));
+				player.sendMessage(new TextComponentString("| Précise un nom de joueur."));
 				player.sendMessage(new TextComponentString("| /dmfadmin addxp <player> [<number>]."));
 				player.sendMessage(new TextComponentString("--------------------------"));
 			} else {
@@ -312,18 +316,18 @@ public class CommandDmfAdmin extends CommandBase {
 					if(args.length < 3) {
 						tCap.addXP(100);
 						player.sendMessage(new TextComponentString("--------------------------"));
-						player.sendMessage(new TextComponentString("| 100 xp have been added to " + args[1] + " counter."));
+						player.sendMessage(new TextComponentString("| 100 falnas on été ajouter à " + args[1] + "."));
 						player.sendMessage(new TextComponentString("--------------------------"));
 					} else {
 						int xp = Integer.valueOf(args[2]);
 						tCap.addXP(xp);
 						player.sendMessage(new TextComponentString("--------------------------"));
-						player.sendMessage(new TextComponentString("| " + xp + "xp have been added to " + args[1] + " counter."));
+						player.sendMessage(new TextComponentString("| " + xp + " falnas on été ajouter à " + args[1] + "."));
 						player.sendMessage(new TextComponentString("--------------------------"));
 					}
 				} else {
 					player.sendMessage(new TextComponentString("--------------------------"));
-					player.sendMessage(new TextComponentString("| The player \"" + args[1] + "\" was not found."));
+					player.sendMessage(new TextComponentString("| Le joueur \"" + args[1] + "\" n'a pas été trouver."));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				}
 			}

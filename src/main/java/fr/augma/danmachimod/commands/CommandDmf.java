@@ -48,14 +48,22 @@ public class CommandDmf extends CommandBase {
     
     public static int getPercentage(int playerLevel) {
 		int playerPercentage = 0;
-		if(playerLevel <= 5) playerPercentage = 20;
-		else playerPercentage = 10;
+		if(playerLevel == 1) playerPercentage = 25; 	 // level 1 : 1/4
+		else if(playerLevel == 2) playerPercentage = 23; // level 2 : 1/4,34
+		else if(playerLevel == 3) playerPercentage = 21; // level 3 : 1/4,76
+		else if(playerLevel == 4) playerPercentage = 19; // level 4 : 1/5,26
+		else if(playerLevel == 5) playerPercentage = 17; // level 5 : 1/5,88
+		else if(playerLevel == 6) playerPercentage = 15; // level 6 : 1/6,66
+		else if(playerLevel == 7) playerPercentage = 13; // level 7 : 1/7,69
+		else if(playerLevel == 8) playerPercentage = 11; // level 8 : 1/9,09
+		else if(playerLevel == 9) playerPercentage = 10; // level 9 : 1/10
+		else if(playerLevel == 10) playerPercentage = 5; // level 10 : 1/20
 		return playerPercentage;
 	}
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "Show your stats";
+        return "Commande racine pour vos statistiques";
     }
 
     public int getRequiredPermissionLevel() {	
@@ -77,23 +85,24 @@ public class CommandDmf extends CommandBase {
         	// If player send command like /dmf
         if(args.length < 1) {
         	player.sendMessage(new TextComponentString("--------------------------"));
-        	player.sendMessage(new TextComponentString("| /dmf > Same as /dmf help."));
-			player.sendMessage(new TextComponentString("| /dmf stat > Show your stats"));
-			player.sendMessage(new TextComponentString("| /dmf refresh > Refresh your statistics"));
-			player.sendMessage(new TextComponentString("| /dmf levelup > You can level up if an statistic is rank D and you make an act of gods"));
+        	player.sendMessage(new TextComponentString("| /dmf > Liste des commandes."));
+			player.sendMessage(new TextComponentString("| /dmf stat > Montre vos statistiques."));
+			player.sendMessage(new TextComponentString("| /dmf refresh > Actualise vos statistiques."));
+			player.sendMessage(new TextComponentString("| /dmf levelup > Permet de level up si vous remplissez les conditions nécessaire."));
 			player.sendMessage(new TextComponentString("--------------------------"));
 			
 			
 			// If player send command like /dmf stats
         } else if("stats".equalsIgnoreCase(args[0])) {
         	player.sendMessage(new TextComponentString("--------------------------"));
-        	player.sendMessage(new TextComponentString("| Your level > " + player.experienceLevel + "."));
-        	player.sendMessage(new TextComponentString("| Strength > " + getNote(pCapData.getInteger("forcelvl" + player.experienceLevel)) + "."));
-        	player.sendMessage(new TextComponentString("| Stamina > " + getNote(pCapData.getInteger("endurancelvl" + player.experienceLevel)) + "."));
-        	player.sendMessage(new TextComponentString("| Agility > " + getNote(pCapData.getInteger("agilitelvl" + player.experienceLevel)) + "."));
-        	player.sendMessage(new TextComponentString("| Dexterity > " + getNote(pCapData.getInteger("dexteritelvl" + player.experienceLevel)) + "."));
+        	player.sendMessage(new TextComponentString("| Level > " + player.experienceLevel + "."));
+        	player.sendMessage(new TextComponentString("| Falnas > " + pCap.getXP() + "."));
+        	player.sendMessage(new TextComponentString("| Force > " + getNote(pCapData.getInteger("forcelvl" + player.experienceLevel)) + "."));
+        	player.sendMessage(new TextComponentString("| Endurance > " + getNote(pCapData.getInteger("endurancelvl" + player.experienceLevel)) + "."));
+        	player.sendMessage(new TextComponentString("| Agilité > " + getNote(pCapData.getInteger("agilitelvl" + player.experienceLevel)) + "."));
+        	player.sendMessage(new TextComponentString("| Dexterité > " + getNote(pCapData.getInteger("dexteritelvl" + player.experienceLevel)) + "."));
         	player.sendMessage(new TextComponentString("| Magie > " + getNote(pCapData.getInteger("magielvl" + player.experienceLevel)) + "."));
-        	player.sendMessage(new TextComponentString("| Act of Gods > " + pCap.getLevelUp()));
+        	player.sendMessage(new TextComponentString("| Acte reconnu des dieux > " + pCap.getLevelUp() + "."));
         	player.sendMessage(new TextComponentString("--------------------------"));
         	
         	
@@ -123,19 +132,19 @@ public class CommandDmf extends CommandBase {
     			CommonEventHandler.addVelocity(player);
     			if(maxed) {
     				player.sendMessage(new TextComponentString("--------------------------"));
-    	    		player.sendMessage(new TextComponentString("| You'r full of statistics for your level, Congratulation !"));
+    	    		player.sendMessage(new TextComponentString("| Tu es max dans toute les statictisques, Bravo !"));
     	    		if(player.experienceLevel == 10) {
-    	    			player.sendMessage(new TextComponentString("| You'r at the maximum level, powerfull !"));
+    	    			player.sendMessage(new TextComponentString("| Tu es au level maximum, quel puissance !"));
     	    		}
     	    		player.sendMessage(new TextComponentString("--------------------------"));
     			} else {
     				player.sendMessage(new TextComponentString("--------------------------"));
-    				player.sendMessage(new TextComponentString("| Statistics refresh !"));
+    				player.sendMessage(new TextComponentString("| Statistics actualisé !"));
     				player.sendMessage(new TextComponentString("--------------------------"));
     			}
     		} else {
     			player.sendMessage(new TextComponentString("--------------------------"));
-    			player.sendMessage(new TextComponentString("| You don't have enough falnas"));
+    			player.sendMessage(new TextComponentString("| Tu n'as pas assez de falnas."));
     			player.sendMessage(new TextComponentString("--------------------------"));
     		}
     		
@@ -153,21 +162,22 @@ public class CommandDmf extends CommandBase {
     					CommonEventHandler.addMaxHealth(player);
     					CommonEventHandler.addVelocity(player);
     					player.sendMessage(new TextComponentString("--------------------------"));
-    					player.sendMessage(new TextComponentString("| Congratulation you have level up !"));
+    					player.sendMessage(new TextComponentString("| Bravo tu as level up !"));
     					player.sendMessage(new TextComponentString("--------------------------"));
     				} else {
     					player.sendMessage(new TextComponentString("--------------------------"));
-    					player.sendMessage(new TextComponentString("| You haven't done an act recognized by the Gods."));
+    					player.sendMessage(new TextComponentString("| Tu n'as pas fait d'acte reconnu par les dieux."));
     					player.sendMessage(new TextComponentString("--------------------------"));
     				}
     			} else {
     				player.sendMessage(new TextComponentString("--------------------------"));
-    				player.sendMessage(new TextComponentString("| You are at the maximum level."));
+    				player.sendMessage(new TextComponentString("| Tu es au level maximum."));
     				player.sendMessage(new TextComponentString("--------------------------"));
     			}
     		} else {
     			player.sendMessage(new TextComponentString("--------------------------"));
-    			player.sendMessage(new TextComponentString("| You are unworthy of reaching the next level."));
+    			player.sendMessage(new TextComponentString("| Tu n'es pas apte à passer au prochain level."));
+    			player.sendMessage(new TextComponentString("| Minimum une statistique au rang D et un acte reconnu des dieux."));
     			player.sendMessage(new TextComponentString("--------------------------"));
     		}
         	
@@ -182,7 +192,7 @@ public class CommandDmf extends CommandBase {
             		pItemHand.getTagCompound().setInteger("xpSword", 0);
             	}
 	        	player.sendMessage(new TextComponentString("--------------------------"));
-				player.sendMessage(new TextComponentString("| You'r sword have " + pItemHand.getTagCompound().getInteger("xpSword") + " xp."));
+				player.sendMessage(new TextComponentString("| Ton épée a " + pItemHand.getTagCompound().getInteger("xpSword") + " xp."));
 				player.sendMessage(new TextComponentString("--------------------------"));
 			}
         }

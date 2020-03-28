@@ -8,6 +8,10 @@ public interface IPlayerDataCap {
 
     void data(NBTTagCompound data);
     
+    default int getTotalSums() {
+    	return getSumsForce() + getSumsEndurance() + getSumsAgilite() + getSumsDexterite() + getSumsMagie();
+    }
+    
     default int getSumsForce() {
     	return getForce1() + getForce2() + getForce3() + getForce4() + getForce5() + getForce6() + getForce7() + getForce8() + getForce9() + getForce10();
     }

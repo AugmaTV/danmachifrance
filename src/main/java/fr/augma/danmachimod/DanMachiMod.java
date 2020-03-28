@@ -1,5 +1,6 @@
 package fr.augma.danmachimod;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -17,6 +18,7 @@ import java.awt.Color;
 
 import org.apache.logging.log4j.Logger;
 
+import club.minnced.discord.rpc.*;
 import fr.augma.danmachimod.capabilities.PlayerDataCapProvider;
 import fr.augma.danmachimod.commands.CommandDmf;
 import fr.augma.danmachimod.commands.CommandDmfAdmin;
