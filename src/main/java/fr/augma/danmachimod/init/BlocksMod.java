@@ -16,25 +16,25 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber(modid = DanMachiMod.MODID)
 public class BlocksMod {
 
-    public static Block blocktuto;
+    //public static Block blocktuto;
 
     public static void init() {
-        blocktuto = new DMBlockBasic("blocktuto", Material.ROCK);
+        //blocktuto = new DMBlockBasic("blocktuto", Material.ROCK);
     }
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        event.getRegistry().registerAll(blocktuto);
+    	event.getRegistry().registerAll();
     }
 
     @SubscribeEvent
     public static void registerItemBlocks(RegistryEvent.Register<Item> event) {
-        event.getRegistry().registerAll(new ItemBlock(blocktuto).setRegistryName(blocktuto.getRegistryName()));
+        event.getRegistry().registerAll(/*new ItemBlock(blocktuto).setRegistryName(blocktuto.getRegistryName())*/);
     }
 
     @SubscribeEvent
     public static void registerRenders(ModelRegistryEvent event) {
-        registerRender(Item.getItemFromBlock(blocktuto));
+    	//registerRender(Item.getItemFromBlock(blocktuto));
     }
 
     private static void registerRender(Item item) {

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
+import fr.augma.danmachimod.DanMachiMod;
 import fr.augma.danmachimod.capabilities.IPlayerDataCap;
 import fr.augma.danmachimod.capabilities.PlayerDataCapProvider;
 import fr.augma.danmachimod.common.DanMachiServer;
@@ -18,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -27,12 +29,15 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.NameFormat;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 @Mod.EventBusSubscriber
 public class CommonEventHandler {
@@ -45,9 +50,9 @@ public class CommonEventHandler {
     	}
     	pEndurance += 200 * (player.experienceLevel - 1);
     	double pMultiHealth = (pEndurance * 20D) / 11790D;
-    	AttributeModifier modifierHealth = new AttributeModifier("health_modifier", pMultiHealth, 0);
+    	AttributeModifier modifierHealth = new AttributeModifier("DMMhealth_modifier", pMultiHealth, 0);
     	for(AttributeModifier a : player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).getModifiers()) {
-    		player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).removeModifier(a.getID());
+    		if(a.getName() == "DMMhealth_modifier") player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).removeModifier(a.getID());
     	}
 		player.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(modifierHealth);
 	}
@@ -60,12 +65,11 @@ public class CommonEventHandler {
     	}
     	pAgilite += 200 * (player.experienceLevel - 1);
     	double pMultiSpeed = (pAgilite * 0.05D) / 11790;
-    	AttributeModifier modifierSpeed = new AttributeModifier("speed_modifier", pMultiSpeed, 0);
+    	AttributeModifier modifierSpeed = new AttributeModifier("DMMspeed_modifier", pMultiSpeed, 0);
     	for(AttributeModifier a : player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getModifiers()) {
-    		player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(a.getID());
+    		if(a.getName() == "DMMspeed_modifier") player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).removeModifier(a.getID());
     	}
 		player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).applyModifier(modifierSpeed);
-		System.out.println(player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
 	}
 
     @SubscribeEvent
@@ -176,4 +180,23 @@ public class CommonEventHandler {
         addVelocity(event.player);
         event.player.setHealth(event.player.getMaxHealth());
     }
+    
+    /*@SubscribeEvent
+    public static void onNameTag(NameFormat event) {
+    	ConfigBase data = new ConfigBase("data/player");
+    	String familia = "";
+    	if(data.getString(event.getEntityPlayer().getUniqueID().toString(), "familia").equalsIgnoreCase("null")) {
+    		familia = "none";
+    	} else {
+    		familia = data.getString(event.getEntityPlayer().getUniqueID().toString(), "familia");
+    	}
+    	event.setDisplayname("[" + familia + "]\n" + event.getUsername());
+    }*/
+    
+    /*@SubscribeEvent
+    public static void onRightClickItem(PlayerInteractEvent.RightClickItem e) {
+    	if(e.getItemStack().getItem().equals(ItemsMod.valis_pouch)) {
+    		e.getEntityPlayer().openGui(DanMachiMod.INSTANCE, GuiHandler.GUI_VALIS_CONTAINER_ID, e.getWorld(), e.getEntityPlayer().getPosition().getX(), e.getEntityPlayer().getPosition().getY(), e.getEntityPlayer().getPosition().getZ());
+    	}
+    }*/
 }

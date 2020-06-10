@@ -67,7 +67,7 @@ public class GuiCustomMainMenu extends GuiScreen {
      */
     private final Object threadLock = new Object();
     private final ServerPinger serverPinger = new ServerPinger();
-    private final ServerData server = new ServerData("serveur", "danmachifrance.serverminer.com", false);
+    private final ServerData server = new ServerData("serveur","danmachifrance.serverminer.com" , false);//"localhost"
     /**
      * The splash message.
      */
@@ -223,6 +223,7 @@ public class GuiCustomMainMenu extends GuiScreen {
         //this.buttonList.add(new GuiButton(1, this.width / 2 - 170, j + 80, 98, 20, I18n.format("menu.singleplayer")));
         this.buttonList.add(new GuiButton(7, this.width / 2 - 100, j + 6 * 1, I18n.format("DanMachi France")));
         this.buttonList.add(new GuiButton(4, this.width / 2 + 72, j + 56, 98, 20, I18n.format("Quitter")));
+        this.buttonList.add(new GuiButton(13, this.width / 2 - 50, j + 46, 98, 20, I18n.format("Discord")));
         //this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, j + 72 + 12));
 
         synchronized (this.threadLock) {
@@ -280,7 +281,7 @@ public class GuiCustomMainMenu extends GuiScreen {
         }
 
         if (button.id == 7) {
-            FMLClientHandler.instance().connectToServer(this, new ServerData("localserver","danmachifrance.serverminer.com" , false));//"localhost"
+            FMLClientHandler.instance().connectToServer(this, new ServerData("localserver","danmachifrance.serverminer.com", false));//"localhost"
         }
 
         if (button.id == 11) {
@@ -295,6 +296,20 @@ public class GuiCustomMainMenu extends GuiScreen {
                 this.mc.displayGuiScreen(new GuiYesNo(this, I18n.format("selectWorld.deleteQuestion"), "'" + worldinfo.getWorldName() + "' " + I18n.format("selectWorld.deleteWarning"), I18n.format("selectWorld.deleteButton"), I18n.format("gui.cancel"), 12));
             }
         }
+        
+        if(button.id == 13) {
+        	openUrl("https://discord.gg/hEpxS7X");
+        }
+    }
+    
+    public void openUrl(String link) {
+    	try {
+            Class<?> oclass = Class.forName("java.awt.Desktop");
+            Object object = oclass.getMethod("getDesktop").invoke(null);
+            oclass.getMethod("browse", URI.class).invoke(object, new URI(link));
+        } catch (Throwable throwable) {
+            LOGGER.error("Couldn't open link", throwable);
+        }
     }
 
     public void confirmClicked(boolean result, int id) {
@@ -307,13 +322,7 @@ public class GuiCustomMainMenu extends GuiScreen {
             this.mc.displayGuiScreen(this);
         } else if (id == 13) {
             if (result) {
-                try {
-                    Class<?> oclass = Class.forName("java.awt.Desktop");
-                    Object object = oclass.getMethod("getDesktop").invoke(null);
-                    oclass.getMethod("browse", URI.class).invoke(object, new URI(this.openGLWarningLink));
-                } catch (Throwable throwable) {
-                    LOGGER.error("Couldn't open link", throwable);
-                }
+                openUrl(this.openGLWarningLink);
             }
 
             this.mc.displayGuiScreen(this);

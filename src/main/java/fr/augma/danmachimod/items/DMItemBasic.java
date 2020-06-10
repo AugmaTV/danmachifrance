@@ -2,7 +2,10 @@ package fr.augma.danmachimod.items;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import fr.augma.danmachimod.DanMachiMod;
+import fr.augma.danmachimod.init.ItemsMod;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

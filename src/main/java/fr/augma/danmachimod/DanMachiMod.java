@@ -53,6 +53,7 @@ public class DanMachiMod {
         proxy.preInit(event.getSuggestedConfigurationFile());
         BlocksMod.init();
         ItemsMod.init();
+        //NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 
         network = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
         network.registerMessage(SCPacketPlayerDataCap.Handler.class, SCPacketPlayerDataCap.class, 3, Side.CLIENT);

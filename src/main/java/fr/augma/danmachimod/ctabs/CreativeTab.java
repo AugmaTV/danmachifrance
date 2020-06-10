@@ -11,7 +11,7 @@ public class CreativeTab extends CreativeTabs {
     }
 
     public ItemStack getTabIconItem() {
-        return new ItemStack(ItemsMod.itemtuto);
+        return new ItemStack(ItemsMod.hestia_dagger);
     }
 
 }

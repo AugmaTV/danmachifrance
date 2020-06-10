@@ -98,6 +98,32 @@ public class CommandFamilia extends CommandBase {
 					player.sendMessage(new TextComponentString("| Membre : " + listToString(data.getStringList(familia, "members"))));
 					player.sendMessage(new TextComponentString("--------------------------"));
 				}
+			} else if("desc".equalsIgnoreCase(args[0])) {
+				data = new ConfigBase("data/player");
+				if(data.getString(player.getUniqueID().toString(), "familia").equalsIgnoreCase("null")) {
+					player.sendMessage(new TextComponentString("--------------------------"));
+					player.sendMessage(new TextComponentString("| Tu n'as pas de familia."));
+					player.sendMessage(new TextComponentString("--------------------------"));
+				} else {
+					if(args.length < 2) {
+						player.sendMessage(new TextComponentString("--------------------------"));
+						player.sendMessage(new TextComponentString("| Précisé une description."));
+						player.sendMessage(new TextComponentString("| /familia desc <description>."));
+						player.sendMessage(new TextComponentString("--------------------------"));
+					} else {
+						String familia = data.getString(player.getUniqueID().toString(), "familia");
+						data = new ConfigBase("data/familia");
+						String desc = "";
+						for(int i = 1; i < args.length; i++) {
+							desc += args[i] + " ";
+						}
+						desc = desc.substring(0, desc.length() - 1);
+						data.writeConfig(familia, "description", desc);
+						player.sendMessage(new TextComponentString("--------------------------"));
+						player.sendMessage(new TextComponentString("| Description de familia modifié avec succès."));
+						player.sendMessage(new TextComponentString("--------------------------"));
+					}
+				}
 			}
 		}
 	}
